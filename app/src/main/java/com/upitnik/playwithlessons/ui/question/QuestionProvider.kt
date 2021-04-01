@@ -1,9 +1,6 @@
 package com.upitnik.playwithlessons.ui.question
 
-import com.upitnik.playwithlessons.ui.question.AnswerData
-import com.upitnik.playwithlessons.ui.question.QuestionData
-
-class QuestionProvider {
+class QuestionProvider(questions: QuestionData) {
     companion object {
         fun getQuestions(): List<QuestionData> {
 

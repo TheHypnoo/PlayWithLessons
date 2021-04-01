@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "300741221358",
+    "project_id": "playwithlesons",
+    "storage_bucket": "playwithlesons.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300741221358:android:dc9652b950f15eeea0ccff",
+        "android_client_info": {
+          "package_name": "com.upitnik.playwithlessons"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300741221358-98mj0o30quleebno5uhkqanf4egmdca6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Mnp_mC0UG-6HCuEftjH3rOicBBVGXEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300741221358-98mj0o30quleebno5uhkqanf4egmdca6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

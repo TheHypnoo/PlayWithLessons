@@ -10,7 +10,7 @@ import com.upitnik.playwithlessons.ui.question.AnswerData
 class AnswerAdapter(
     private val answer: List<AnswerData>,
     private val onAnswerSelected: (AnswerData, Int) -> Unit
-): RecyclerView.Adapter<AnswerViewHolder>(){
+) : RecyclerView.Adapter<AnswerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
