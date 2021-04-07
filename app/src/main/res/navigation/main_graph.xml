@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.upitnik.playwithlessons.ui.onBoarding.onBoardingFragment"
+        android:name="com.upitnik.playwithlessons.ui.onBoarding.ViewPagerFragment"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" >
+        tools:layout="@layout/fragment_view_pager" >
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
