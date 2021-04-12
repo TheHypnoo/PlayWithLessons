@@ -1,9 +1,6 @@
 package com.upitnik.playwithlessons.data.model.GameQuestions
 
-data class Questions(
-    val question: String,
-    val answer: String,
-    val answer1: String,
-    val answer2: String,
-    val answer3: String
-)
+import java.io.Serializable
+
+data class QuestionData(val header: String, val title: String, val answers: List<AnswerData>) : Serializable
+data class AnswerData(val title: String, val isCorrect: Boolean) : Serializable
