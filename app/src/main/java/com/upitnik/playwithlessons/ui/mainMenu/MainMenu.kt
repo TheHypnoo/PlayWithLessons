@@ -1,10 +1,11 @@
-package com.upitnik.playwithlessons.ui
+package com.upitnik.playwithlessons.ui.mainMenu
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.data.model.Courses
+import com.upitnik.playwithlessons.ui.service
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,7 +24,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu) {
         val httpService = retrofit.create(service::class.java)
 
         val call: Call<Courses> =
-            httpService.getJSON("$BASEAPI/api/pwlassignatura")
+            httpService.getJSON("api/pwlassignatura")
 
         call.enqueue(object : Callback<Courses> {
 

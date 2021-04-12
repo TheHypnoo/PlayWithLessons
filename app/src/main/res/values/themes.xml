@@ -13,4 +13,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="buttonQuestion">
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="strokeColor">@color/orange</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="backgroundTint">@color/purple</item>
+    </style>
 </resources>

@@ -40,20 +40,34 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_mainMenu"
-            app:destination="@id/mainMenu" />
+            app:destination="@id/menulevels" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.upitnik.playwithlessons.ui.auth.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_mainMenu"
             app:destination="@id/mainMenu" />
     </fragment>
     <fragment
         android:id="@+id/mainMenu"
-        android:name="com.upitnik.playwithlessons.ui.MainMenu"
+        android:name="com.upitnik.playwithlessons.ui.mainMenu.MainMenu"
         android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu" />
+    <fragment
+        android:id="@+id/menulevels"
+        android:name="com.upitnik.playwithlessons.ui.levels.MenuLevelsFragment"
+        android:label="fragment_menu_levels"
+        tools:layout="@layout/fragment_menu_levels">
+        <action
+            android:id="@+id/action_menulevels_to_levelQuestion"
+            app:destination="@id/levelQuestion" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelQuestion"
+        android:name="com.upitnik.playwithlessons.ui.questions.QuestionsFragment"
+        android:label="fragment_level_question"
+        tools:layout="@layout/fragment_questions" />
 </navigation>
