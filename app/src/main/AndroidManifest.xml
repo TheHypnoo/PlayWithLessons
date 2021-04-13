@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayWithLessons"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.upitnik.playwithlessons.MainActivity">
+        <activity android:name=".questions.ResultActivity"></activity>
+        <activity android:name=".questions.ActivityPrincipal" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.GameQuestions.AnswerData
+import com.upitnik.playwithlessons.data.model.questions.AnswerData
+
 
 
 class AnswerAdapter(
