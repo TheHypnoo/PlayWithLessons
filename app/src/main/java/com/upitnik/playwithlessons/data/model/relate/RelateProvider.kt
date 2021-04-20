@@ -8,7 +8,9 @@ class RelateProvider {
                 RelateData(
                     title = "Usamos la palabra reservada var para...",
                     answers = listOf(
-                        RelateAnswerData(title = "Casa", correct = "Volante"),
+                        RelateAnswerData(title = "Casa", correct = "Casa"),
+                        RelateAnswerData(title = "Ca234sa", correct = "Cas234a"),
+                        RelateAnswerData(title = "324", correct = "Ca3242sa"),
                         RelateAnswerData(title = "Valor constante", correct = "Variable")
                     )
                 ),

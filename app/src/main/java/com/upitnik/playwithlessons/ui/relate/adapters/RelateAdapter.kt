@@ -22,6 +22,7 @@ class RelateAdapter(
     override fun onBindViewHolder(holder: RelateViewHolder, position: Int) {
         val item = answer[position]
         holder.render(item, onAnswerSelected)
+
     }
 
 }

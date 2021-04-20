@@ -10,8 +10,7 @@ import com.upitnik.playwithlessons.ui.relate.adapters.RelateAdapter
 class RelateLeftConcatAdapter(private val RelateAdapter: RelateAdapter) :
     RecyclerView.Adapter<BaseConcatHolder<*>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseConcatHolder<*> {
-        val itemBinding =
-            RelateLeftButtonsRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = RelateLeftButtonsRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConcatViewHolder(itemBinding)
     }
 

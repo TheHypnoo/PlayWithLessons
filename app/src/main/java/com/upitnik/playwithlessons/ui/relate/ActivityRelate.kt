@@ -40,7 +40,7 @@ class ActivityRelate : AppCompatActivity() {
 
     private fun initToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Preguntas y Respuestas"
+        supportActionBar?.title = "Relacionar"
     }
 
     private fun updateSteps() {

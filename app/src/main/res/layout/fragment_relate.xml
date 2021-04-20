@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivHeader"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -37,6 +37,8 @@
         android:id="@+id/rvAnswer"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -72,7 +72,7 @@ class RelateFragment : Fragment(R.layout.fragment_relate) {
     }
 
     private fun initAnswerQuestion(answers: List<RelateAnswerData>) {
-        //binding.rvAnswer.layoutManager = LinearLayoutManager(requireContext())
+       // binding.rvAnswer.layoutManager = LinearLayoutManager(requireContext())
         concatAdapter.apply {
             addAdapter(
                 0,
@@ -104,7 +104,9 @@ class RelateFragment : Fragment(R.layout.fragment_relate) {
 
     private fun onAnswerSelected(result: RelateAnswerData, position: Int) {
         val viewHolder = binding.rvAnswer.findViewHolderForAdapterPosition(position)
-        checkIsCorrect(result, (viewHolder  as AnswerViewHolder).btnAnswer)
+        //checkIsCorrect(result, (viewHolder  as AnswerViewHolder).btnAnswer)
+
+        println("Apretado")
 
         listener?.onAnswerClickedRelate(result)
     }
