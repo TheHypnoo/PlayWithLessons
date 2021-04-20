@@ -76,6 +76,6 @@
         tools:layout="@layout/fragment_questions" />
     <activity
         android:id="@+id/activityPrincipal"
-        android:name="com.upitnik.playwithlessons.questions.ActivityPrincipal"
+        android:name="com.upitnik.playwithlessons.ui.relate.ActivityRelate"
         android:label="ActivityPrincipal" />
 </navigation>

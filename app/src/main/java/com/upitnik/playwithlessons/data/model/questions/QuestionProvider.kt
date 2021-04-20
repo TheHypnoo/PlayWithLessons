@@ -1,4 +1,4 @@
-package com.upitnik.playwithlessons.data.model.GameQuestions
+package com.upitnik.playwithlessons.data.model.questions
 
 class QuestionProvider {
     companion object {

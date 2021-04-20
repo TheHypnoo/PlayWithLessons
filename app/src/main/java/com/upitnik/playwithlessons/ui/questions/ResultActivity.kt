@@ -1,10 +1,9 @@
-package com.upitnik.playwithlessons.questions
+package com.upitnik.playwithlessons.ui.questions
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
@@ -63,7 +62,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun resetTest(){
-        startActivity(ActivityPrincipal.create(this))
+        startActivity(ActivityQuestions.create(this))
     }
 
     override fun onBackPressed() {

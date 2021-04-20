@@ -1,22 +1,24 @@
-package com.upitnik.playwithlessons.questions
+package com.upitnik.playwithlessons.ui.questions
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.upitnik.playwithlessons.QuestionProvider
+import android.os.Looper
+import com.upitnik.playwithlessons.data.model.questions.QuestionProvider
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.data.model.questions.AnswerData
 import com.upitnik.playwithlessons.data.model.questions.QuestionData
+import com.upitnik.playwithlessons.data.model.relate.RelateData
 import com.upitnik.playwithlessons.databinding.ActivityPrincipalBinding
-import com.upitnik.playwithlessons.ui.questions.QuestionsFragment
+import com.upitnik.playwithlessons.ui.relate.OnRelateButtonActionListener
 
-class ActivityPrincipal : AppCompatActivity(), OnQuestionActionListener {
+class ActivityQuestions : AppCompatActivity(), OnRelateButtonActionListener {
 
     companion object {
         fun create(context: Context): Intent {
-            return Intent(context, ActivityPrincipal::class.java).apply {
+            return Intent(context, ActivityQuestions::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
         }
@@ -41,7 +43,7 @@ class ActivityPrincipal : AppCompatActivity(), OnQuestionActionListener {
     }
     private fun initToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Kotlin test"
+        supportActionBar?.title = "Preguntas y Respuestas"
     }
     private fun updateSteps() {
         binding.tvSteps.text = " ${questionPosition+1} de ${questions.size}"
@@ -69,18 +71,19 @@ class ActivityPrincipal : AppCompatActivity(), OnQuestionActionListener {
         fragmentTransaction.commit()
     }
 
-    override fun onAnswerClicked(answer: AnswerData) {
-        Handler().postDelayed(
+    override fun onAnswerClickedRelate(answer: RelateData) {
+        Handler(Looper.myLooper()!!).postDelayed(
             {
                 updateView(answer)
             },
             400 // value in milliseconds
         )
     }
-    private fun updateView(answer: AnswerData) {
-        if(answer.isCorrect){
+
+    private fun updateView(answer: RelateData) {
+        /*if(answer.isCorrect){
             setPoints()
-        }
+        }*/
         nextQuestion()
     }
 }

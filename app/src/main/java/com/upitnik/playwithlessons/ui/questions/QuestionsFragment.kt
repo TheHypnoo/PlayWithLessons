@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.data.model.questions.QuestionData
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
-import com.upitnik.playwithlessons.questions.OnQuestionActionListener
 
 class QuestionsFragment : Fragment() {
 
@@ -81,7 +80,7 @@ class QuestionsFragment : Fragment() {
 
     private fun initQuestion(questions: QuestionData) {
         initImageQuestion(questions.header)
-//        initTitleQuestion(questions.title)
+        initTitleQuestion(questions.title)
         formatQuestion(questions.title)
         initAnswerQuestion(questions.answers)
     }
@@ -96,7 +95,7 @@ class QuestionsFragment : Fragment() {
         val viewHolder = binding.rvAnswer.findViewHolderForAdapterPosition(position)
         checkIsCorrect(result, (viewHolder  as AnswerViewHolder).btnAnswer)
 
-        listener?.onAnswerClicked(result)
+        listener?.onAnswerClickedQuestions(result)
     }
 
 
