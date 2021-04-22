@@ -1,14 +1,12 @@
 package com.upitnik.playwithlessons.ui.levels
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.databinding.LevelItemBinding
-import com.upitnik.playwithlessons.ui.questions.ActivityQuestions
-import com.upitnik.playwithlessons.ui.relate.ActivityRelate
 
 class LevelsAdapter(private val listLevels: List<String>) :
     RecyclerView.Adapter<LevelsAdapter.LevelsHolder>() {
@@ -20,7 +18,6 @@ class LevelsAdapter(private val listLevels: List<String>) :
 
     override fun onBindViewHolder(holder: LevelsHolder, position: Int) {
         holder.render(listLevels[position])
-
     }
 
     override fun getItemCount(): Int = listLevels.size
@@ -30,8 +27,9 @@ class LevelsAdapter(private val listLevels: List<String>) :
 
         fun render(button: String) {
             binding.btnLevel.text = button
-            binding.btnLevel.setOnClickListener{
-                view.context.startActivity(Intent(view.context, ActivityRelate::class.java))
+            binding.btnLevel.setOnClickListener {
+                binding.root.findNavController()
+                    .navigate(R.id.action_menulevels_to_activityQuestions)
             }
         }
     }

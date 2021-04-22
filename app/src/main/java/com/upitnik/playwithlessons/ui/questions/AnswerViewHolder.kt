@@ -16,7 +16,7 @@ class AnswerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     ){
         btnAnswer.text = answerData.title
         btnAnswer.setOnClickListener {
-            onAnswerSelected(answerData, adapterPosition)
+            onAnswerSelected(answerData, bindingAdapterPosition)
         }
 
     }

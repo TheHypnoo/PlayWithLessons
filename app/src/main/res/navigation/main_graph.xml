@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.upitnik.playwithlessons.ui.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_onBoardingFragment"
             app:destination="@id/onBoardingFragment" />
@@ -21,7 +21,7 @@
         android:id="@+id/onBoardingFragment"
         android:name="com.upitnik.playwithlessons.ui.onBoarding.ViewPagerFragment"
         android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_view_pager" >
+        tools:layout="@layout/fragment_view_pager">
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -30,7 +30,7 @@
         android:id="@+id/loginFragment"
         android:name="com.upitnik.playwithlessons.ui.auth.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
@@ -55,10 +55,10 @@
         android:id="@+id/mainMenu"
         android:name="com.upitnik.playwithlessons.ui.mainMenu.MainMenu"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" >
+        tools:layout="@layout/fragment_main_menu">
         <action
             android:id="@+id/action_mainMenu_to_activityPrincipal"
-            app:destination="@id/activityPrincipal" />
+            app:destination="@id/activityQuestions" />
     </fragment>
     <fragment
         android:id="@+id/menulevels"
@@ -66,8 +66,8 @@
         android:label="fragment_menu_levels"
         tools:layout="@layout/fragment_menu_levels">
         <action
-            android:id="@+id/action_menulevels_to_levelQuestion"
-            app:destination="@id/levelQuestion" />
+            android:id="@+id/action_menulevels_to_activityQuestions"
+            app:destination="@id/activityQuestions" />
     </fragment>
     <fragment
         android:id="@+id/levelQuestion"
@@ -75,7 +75,8 @@
         android:label="fragment_level_question"
         tools:layout="@layout/fragment_questions" />
     <activity
-        android:id="@+id/activityPrincipal"
-        android:name="com.upitnik.playwithlessons.ui.relate.ActivityRelate"
-        android:label="ActivityPrincipal" />
+        android:id="@+id/activityQuestions"
+        android:name="com.upitnik.playwithlessons.ui.questions.ActivityQuestions"
+        android:label="ActivityQuestion"
+        tools:layout="@layout/activity_questions" />
 </navigation>

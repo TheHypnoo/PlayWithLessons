@@ -16,7 +16,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/mulish_main"
         android:text="Registrate"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 

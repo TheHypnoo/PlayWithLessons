@@ -2,8 +2,8 @@ package com.upitnik.playwithlessons.ui.questions
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.upitnik.playwithlessons.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {

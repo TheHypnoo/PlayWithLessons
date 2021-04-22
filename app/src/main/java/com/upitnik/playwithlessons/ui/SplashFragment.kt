@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.databinding.FragmentSplashBinding

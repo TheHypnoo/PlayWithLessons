@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.data.model.Courses
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
-import com.upitnik.playwithlessons.ui.service
+import com.upitnik.playwithlessons.repository.WebService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +25,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu) {
             .baseUrl(BASEAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val httpService = retrofit.create(service::class.java)
+        val httpService = retrofit.create(WebService::class.java)
 
         val call: Call<Courses> =
             httpService.getJSON("api/pwlassignatura")

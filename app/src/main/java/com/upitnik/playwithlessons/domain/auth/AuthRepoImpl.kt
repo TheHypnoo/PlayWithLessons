@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.domain.auth
 
-import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
 import com.google.firebase.auth.FirebaseUser
+import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
 
 class AuthRepoImpl(private val dataSource: AuthDataSource) : AuthRepo {
     override suspend fun signIn(email: String, password: String): FirebaseUser? =

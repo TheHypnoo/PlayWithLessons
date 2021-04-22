@@ -9,15 +9,15 @@ import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import com.upitnik.playwithlessons.data.model.questions.AnswerData
 import android.widget.Button
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.data.model.questions.AnswerData
 import com.upitnik.playwithlessons.data.model.questions.QuestionData
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
 

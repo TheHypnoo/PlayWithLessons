@@ -29,5 +29,6 @@ class ViewPagerFragment : Fragment(R.layout.fragment_view_pager) {
         )
 
         binding.viewPager.adapter = adapter
+        binding.indicator.setViewPager(binding.viewPager)
     }
 }

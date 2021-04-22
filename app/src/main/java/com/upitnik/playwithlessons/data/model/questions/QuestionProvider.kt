@@ -6,11 +6,11 @@ class QuestionProvider {
 
             return listOf(
                 QuestionData(
-                    header = "https://hipertextual.com/files/2019/06/hipertextual-kotlin-lenguaje-oficial-android-que-quiere-comerse-java-2019922347.jpg",
-                    title = "Usamos la palabra reservada var para...",
+                    header = "https://i.ytimg.com/vi/tQC5ZZbPWP4/maxresdefault.jpg",
+                    title = "Esto es un tren, tu te montas en el tren y yo te monto a ti",
                     answers = listOf(
-                        AnswerData(title = "Variable", isCorrect = true),
-                        AnswerData(title = "Valor constante", isCorrect = false)
+                        AnswerData(title = "Vale", isCorrect = true),
+                        AnswerData(title = "Calla payaso", isCorrect = false)
                     )
                 ),
                 QuestionData(
@@ -32,7 +32,7 @@ class QuestionProvider {
                     )
                 ),
                 QuestionData(
-                    header = "https://cursokotlin.com/wp-content/uploads/2020/09/Webp.net-compress-image.jpg",
+                    header = "https://i.ytimg.com/vi/8WiyY52aYUM/maxresdefault.jpg",
                     title = "adw...",
                     answers = listOf(
                         AnswerData(title = "Variable", isCorrect = true),

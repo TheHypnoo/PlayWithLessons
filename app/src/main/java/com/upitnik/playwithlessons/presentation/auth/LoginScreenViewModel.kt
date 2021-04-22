@@ -6,7 +6,6 @@ import androidx.lifecycle.liveData
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.domain.auth.AuthRepo
 import kotlinx.coroutines.Dispatchers
-import java.lang.Exception
 
 class AuthViewModel(private val repo: AuthRepo): ViewModel(){
 
