@@ -60,9 +60,6 @@ class MainMenu : Fragment(R.layout.fragment_main_menu) {
                 }
             }
         })
-        binding.btnSignInEmail.setOnClickListener {
-            findNavController().navigate(R.id.action_mainMenu_to_activityPrincipal)
-        }
     }
 
 
