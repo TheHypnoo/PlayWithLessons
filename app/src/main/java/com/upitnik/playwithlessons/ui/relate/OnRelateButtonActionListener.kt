@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.ui.relate
 
-import com.upitnik.playwithlessons.data.model.relate.RelateData
+import com.upitnik.playwithlessons.data.model.relate.RelateAnswers
 
 interface OnRelateButtonActionListener {
-    fun onAnswerClickedRelate(answer: RelateData)
+    fun onAnswerClickedRelate(answer: RelateAnswers)
 }

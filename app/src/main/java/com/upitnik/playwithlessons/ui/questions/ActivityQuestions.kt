@@ -8,9 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import com.upitnik.playwithlessons.data.model.questions.QuestionProvider
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.questions.AnswerData
 import com.upitnik.playwithlessons.data.model.questions.QuestionData
-import com.upitnik.playwithlessons.data.model.relate.RelateData
+import com.upitnik.playwithlessons.data.model.relate.RelateAnswers
 import com.upitnik.playwithlessons.databinding.ActivityPrincipalBinding
 import com.upitnik.playwithlessons.ui.relate.OnRelateButtonActionListener
 
@@ -71,7 +70,7 @@ class ActivityQuestions : AppCompatActivity(), OnRelateButtonActionListener {
         fragmentTransaction.commit()
     }
 
-    override fun onAnswerClickedRelate(answer: RelateData) {
+    override fun onAnswerClickedRelate(answer: RelateAnswers) {
         Handler(Looper.myLooper()!!).postDelayed(
             {
                 updateView(answer)
@@ -80,7 +79,7 @@ class ActivityQuestions : AppCompatActivity(), OnRelateButtonActionListener {
         )
     }
 
-    private fun updateView(answer: RelateData) {
+    private fun updateView(answer: RelateAnswers) {
         /*if(answer.isCorrect){
             setPoints()
         }*/

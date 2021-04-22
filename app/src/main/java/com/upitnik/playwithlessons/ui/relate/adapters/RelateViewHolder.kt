@@ -4,20 +4,19 @@ import android.view.View
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.relate.RelateAnswerData
-import com.upitnik.playwithlessons.data.model.relate.RelateData
+import com.upitnik.playwithlessons.data.model.relate.RelateAnswers
 
 class RelateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val btnAnswer: Button = view.findViewById(R.id.btnAnswer)
 
     fun render(
-        answerData: RelateAnswerData,
-        onAnswerSelected: (RelateAnswerData, Int) -> Unit
+        answerData: RelateAnswers,
+        onAnswerSelected: (RelateAnswers, Int) -> Unit
     ){
-        btnAnswer.text = answerData.title
+        btnAnswer.text = answerData.answerLeft[absoluteAdapterPosition].title
         btnAnswer.setOnClickListener {
-            onAnswerSelected(answerData, adapterPosition)
+            onAnswerSelected(answerData, absoluteAdapterPosition)
         }
 
     }

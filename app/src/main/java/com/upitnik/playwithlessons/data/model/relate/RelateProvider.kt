@@ -6,55 +6,39 @@ class RelateProvider {
 
             return listOf(
                 RelateData(
-                    title = "Usamos la palabra reservada var para...",
-                    answers = listOf(
-                        RelateAnswerData(title = "Casa", correct = "Casa"),
-                        RelateAnswerData(title = "Ca234sa", correct = "Cas234a"),
-                        RelateAnswerData(title = "324", correct = "Ca3242sa"),
-                        RelateAnswerData(title = "Valor constante", correct = "Variable")
+                    getAnswers()
+                ),
+            )
+        }
+
+        fun getAnswers(): List<RelateAnswers> {
+            return listOf(
+                RelateAnswers(
+                    answerLeft = listOf(
+                        RelateAnswerLeft(title = "Casa", correct = "Jardin"),
+                        RelateAnswerLeft(title = "Coche", correct = "Volante"),
+                        RelateAnswerLeft(title = "Internet", correct = "Ordenador"),
+                        RelateAnswerLeft(title = "Movil", correct = "Llamada")
+                    ),
+                    answerRight = listOf(
+                        RelateAnswerRight(title = "Jardin", correct = "Casa"),
+                        RelateAnswerRight(title = "Volante", correct = "Coche"),
+                        RelateAnswerRight(title = "Ordenador", correct = "Internet"),
+                        RelateAnswerRight(title = "Llamada", correct = "Movil")
                     )
                 ),
-                RelateData(
-                    title = "Esto es una prueba",
-                    answers = listOf(
-                        RelateAnswerData(title = "Variable", correct = "PEPE"),
-                        RelateAnswerData(title = "Valor constante", correct = "Volante"),
-                        RelateAnswerData(title = "Compilar la app", correct = "Volante")
-                    )
-                ),
-                RelateData(
-                    title = "Esto es una prueba",
-                    answers = listOf(
-                        RelateAnswerData(title = "adw", correct = "Volante"),
-                        RelateAnswerData(title = "adwd constante", correct = "Volante"),
-                        RelateAnswerData(title = "Compilar dawd app", correct = "Volante")
-                    )
-                ),
-                RelateData(
-                    title = "adw...",
-                    answers = listOf(
-                        RelateAnswerData(title = "Variable", correct = "Volante"),
-                        RelateAnswerData(title = "Valor constante", correct = "Volante"),
-                        RelateAnswerData(title = "Crear una función", correct = "Volante"),
-                        RelateAnswerData(title = "Compilar la app", correct = "Volante")
-                    )
-                ),
-                RelateData(
-                    title = "Esto es dqwdba",
-                    answers = listOf(
-                        RelateAnswerData(title = "Variable", correct = "Volante"),
-                        RelateAnswerData(title = "Valor constante", correct = "Volante"),
-                        RelateAnswerData(title = "Crear una función", correct = "Volante"),
-                        RelateAnswerData(title = "Compilar la app", correct = "Volante")
-                    )
-                ),
-                RelateData(
-                    title = "Esto es unqwdeueba",
-                    answers = listOf(
-                        RelateAnswerData(title = "adw", correct = "Volante"),
-                        RelateAnswerData(title = "adwd constante", correct = "Volante"),
-                        RelateAnswerData(title = "dwad una función", correct = "Volante"),
-                        RelateAnswerData(title = "Compilar dawd app", correct = "Volante")
+                RelateAnswers(
+                    answerLeft = listOf(
+                        RelateAnswerLeft(title = "Casa", correct = "Jardin"),
+                        RelateAnswerLeft(title = "Coche", correct = "Volante"),
+                        RelateAnswerLeft(title = "Internet", correct = "Ordenador"),
+                        RelateAnswerLeft(title = "Movil", correct = "Llamada")
+                    ),
+                    answerRight = listOf(
+                        RelateAnswerRight(title = "Jardin", correct = "Casa"),
+                        RelateAnswerRight(title = "Volante", correct = "Coche"),
+                        RelateAnswerRight(title = "Ordenador", correct = "Internet"),
+                        RelateAnswerRight(title = "Llamada", correct = "Movil")
                     )
                 )
             )
