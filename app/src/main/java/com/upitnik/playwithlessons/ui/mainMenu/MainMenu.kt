@@ -11,24 +11,29 @@ import com.upitnik.playwithlessons.repository.WebService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainMenu : Fragment(R.layout.fragment_main_menu) {
-    val BASEAPI = "http://10.0.2.2:8000/"
-    private lateinit var binding:FragmentMainMenuBinding
+    private lateinit var binding: FragmentMainMenuBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainMenuBinding.bind(view)
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASEAPI)
+        binding.btnPlayGame.setOnClickListener {
+            findNavController().navigate(R.id.action_mainMenu_to_menulevels)
+        }
+    }
+
+    fun TestAPI() {
+        val retrofit = WebService.RetrofitClient.webService
+        /*val retrofit = Retrofit.Builder()
+            .baseUrl(AppConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val httpService = retrofit.create(WebService::class.java)
+            .build()*/
+        //val httpService = retrofit.create(WebService::class.java)
 
         val call: Call<Courses> =
-            httpService.getJSON("api/pwlassignatura")
+            WebService.RetrofitClient.webService.getJSON("api/pwlassignatura")
 
         call.enqueue(object : Callback<Courses> {
 

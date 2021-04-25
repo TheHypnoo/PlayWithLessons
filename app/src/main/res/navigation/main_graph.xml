@@ -40,7 +40,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_mainMenu"
-            app:destination="@id/menulevels" />
+            app:destination="@id/mainMenu" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -57,8 +57,8 @@
         android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu">
         <action
-            android:id="@+id/action_mainMenu_to_activityPrincipal"
-            app:destination="@id/activityQuestions" />
+            android:id="@+id/action_mainMenu_to_menulevels"
+            app:destination="@id/menulevels" />
     </fragment>
     <fragment
         android:id="@+id/menulevels"
