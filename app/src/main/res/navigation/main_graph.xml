@@ -5,6 +5,7 @@
     android:id="@+id/main_graph.xml"
     app:startDestination="@id/splashFragment">
 
+    <!--Splash Fragment-->
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.upitnik.playwithlessons.ui.SplashFragment"
@@ -12,11 +13,14 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_onBoardingFragment"
-            app:destination="@id/onBoardingFragment" />
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/main_graph.xml"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <!--onBoarding Fragment-->
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.upitnik.playwithlessons.ui.onBoarding.ViewPagerFragment"
@@ -24,8 +28,11 @@
         tools:layout="@layout/fragment_view_pager">
         <action
             android:id="@+id/action_onBoardingFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/main_graph.xml"
+            app:popUpToInclusive="false" />
     </fragment>
+    <!--Login Fragment-->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.upitnik.playwithlessons.ui.auth.LoginFragment"
@@ -40,8 +47,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_loginFragment_to_mainMenu"
-            app:destination="@id/mainMenu" />
+            app:destination="@id/mainMenu"
+            app:popUpTo="@id/main_graph.xml"
+            app:popUpToInclusive="false" />
     </fragment>
+    <!--Register Fragment-->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.upitnik.playwithlessons.ui.auth.RegisterFragment"
@@ -49,17 +59,58 @@
         tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_mainMenu"
-            app:destination="@id/mainMenu" />
+            app:destination="@id/mainMenu"
+            app:popUpTo="@id/main_graph.xml"
+            app:popUpToInclusive="false" />
     </fragment>
+    <!--Fragment Profile-->
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.upitnik.playwithlessons.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+    <action
+        android:id="@+id/action_profile_to_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/main_graph.xml"
+        app:popUpToInclusive="false" />
+    </fragment>
+    <!--Main Menu-->
     <fragment
         android:id="@+id/mainMenu"
         android:name="com.upitnik.playwithlessons.ui.mainMenu.MainMenu"
         android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu">
         <action
+            android:id="@+id/action_mainMenu_to_selectSubject"
+            app:destination="@id/menuSelectSubject" />
+        <action
             android:id="@+id/action_mainMenu_to_menulevels"
             app:destination="@id/menulevels" />
+        <action
+            android:id="@+id/action_mainMenu_to_Ranking"
+            app:destination="@id/Ranking" />
+        <action
+            android:id="@+id/action_mainMenu_to_Profile"
+            app:destination="@id/fragment_profile" />
     </fragment>
+    <!--Ranking-->
+    <fragment
+        android:id="@+id/Ranking"
+        android:name="com.upitnik.playwithlessons.ui.ranking.RankingFragment"
+        android:label="fragment_ranking"
+        tools:layout="@layout/fragment_ranking" />
+    <!--Menu select Subject-->
+    <fragment
+        android:id="@+id/menuSelectSubject"
+        android:name="com.upitnik.playwithlessons.ui.Subjects.SubjectFragment"
+        android:label="fragment_menu_subject"
+        tools:layout="@layout/fragment_subject">
+        <action
+            android:id="@+id/action_menuSelectSubject_to_menulevels"
+            app:destination="@id/menulevels" />
+    </fragment>
+    <!--Menu Levels-->
     <fragment
         android:id="@+id/menulevels"
         android:name="com.upitnik.playwithlessons.ui.levels.MenuLevelsFragment"
@@ -69,14 +120,17 @@
             android:id="@+id/action_menulevels_to_activityQuestions"
             app:destination="@id/activityQuestions" />
     </fragment>
+    <!--Level Question-->
     <fragment
         android:id="@+id/levelQuestion"
         android:name="com.upitnik.playwithlessons.ui.questions.QuestionsFragment"
         android:label="fragment_level_question"
         tools:layout="@layout/fragment_questions" />
+    <!--Activity Question-->
     <activity
         android:id="@+id/activityQuestions"
         android:name="com.upitnik.playwithlessons.ui.questions.ActivityQuestions"
         android:label="ActivityQuestion"
         tools:layout="@layout/activity_questions" />
+
 </navigation>

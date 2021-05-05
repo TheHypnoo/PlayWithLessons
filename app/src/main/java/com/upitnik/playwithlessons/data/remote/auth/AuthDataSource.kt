@@ -19,4 +19,8 @@ class AuthDataSource {
 
         return authResult.user
     }
+
+    fun signOut() {
+        return FirebaseAuth.getInstance().signOut()
+    }
 }

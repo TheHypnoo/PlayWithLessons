@@ -31,6 +31,24 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSelectorImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        android:layout_margin="16dp"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civSelectImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="6dp"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@id/text_input_layout_username"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

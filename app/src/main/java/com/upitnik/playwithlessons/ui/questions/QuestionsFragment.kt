@@ -8,9 +8,7 @@ import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,14 +19,14 @@ import com.upitnik.playwithlessons.data.model.questions.AnswerData
 import com.upitnik.playwithlessons.data.model.questions.QuestionData
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
 
-class QuestionsFragment : Fragment() {
+class QuestionsFragment : Fragment(R.layout.fragment_questions) {
 
     private var _binding: FragmentQuestionsBinding? = null
     private val binding get() = _binding!!
 
     private var listener: OnQuestionActionListener? = null
 
-    lateinit var adapter:AnswerAdapter
+    lateinit var adapter: AnswerAdapter
 
     lateinit var question: QuestionData
 
@@ -41,22 +39,10 @@ class QuestionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentQuestionsBinding.bind(view)
         initQuestion(question)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentQuestionsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-//    private fun disableAnswer(){
-//
-//        fo
-//        adapter.itemCount
-//    }
 
     private fun initTitleQuestion(title: String) {
         binding.tvQuestion.text = title
@@ -74,7 +60,6 @@ class QuestionsFragment : Fragment() {
         }else{
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
         }
-//        disableAnswer()
     }
 
 

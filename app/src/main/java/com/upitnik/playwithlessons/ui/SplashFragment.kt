@@ -20,9 +20,9 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         binding = FragmentSplashBinding.bind(view)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if(onBoardingFinished()){
+            if (onBoardingFinished()) {
                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-            }else{
+            } else {
                 findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
             }
 
