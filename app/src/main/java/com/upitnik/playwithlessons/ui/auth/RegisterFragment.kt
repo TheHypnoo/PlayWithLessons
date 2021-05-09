@@ -16,10 +16,15 @@ import com.upitnik.playwithlessons.databinding.FragmentRegisterBinding
 import com.upitnik.playwithlessons.domain.auth.AuthRepoImpl
 import com.upitnik.playwithlessons.presentation.auth.AuthViewModel
 import com.upitnik.playwithlessons.presentation.auth.AuthViewModelFactory
+import com.upitnik.playwithlessons.repository.WebService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionListener {
     private lateinit var binding: FragmentRegisterBinding
+    private var listImage: ArrayList<imageUser> = ArrayList()
     private val viewModel by viewModels<AuthViewModel> {
         AuthViewModelFactory(
             AuthRepoImpl(
@@ -31,21 +36,69 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
+        TestAPI()
         SelectorImage()
         visibilityImage()
         SignUp()
     }
 
     private fun SelectorImage() {
-        val Matematicas =
+        /*val Matematicas =
             imageUser("https://avatars.githubusercontent.com/u/31130069?s=400&u=803eaf9c41f3b173610d6f1ee42ab55665f5c9d0&v=4")
         val Catalan = imageUser("https://avatars.githubusercontent.com/u/19620536?v=4")
         val Ingles = imageUser("https://avatars.githubusercontent.com/u/10779469?v=4")
         val Culo = imageUser("https://m.media-amazon.com/images/I/71jod9LB42L._SS500_.jpg")
-        val Tetas =
-            imageUser("https://www.ecestaticos.com/imagestatic/clipping/0cb/784/0cb784d3e9676df636b5ddd1b937c45a.jpg")
-        val listImages: List<imageUser> = listOf(Matematicas, Catalan, Ingles, Culo, Tetas)
-        binding.rvSelectorImage.adapter = SelectorImageAdapter(listImages, this@RegisterFragment)
+        val Tetas = imageUser("https://www.ecestaticos.com/imagestatic/clipping/0cb/784/0cb784d3e9676df636b5ddd1b937c45a.jpg")*/
+/*        val listImages: List<imageUser> = listOf(Matematicas, Catalan, Ingles, Culo, Tetas)*/
+    }
+
+    private fun TestAPI() {
+        val retrofit = WebService.RetrofitClient.webService
+        /*val retrofit = Retrofit.Builder()
+            .baseUrl(AppConstants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()*/
+        //val httpService = retrofit.create(WebService::class.java)
+
+        val call: Call<List<imageUser>> =
+            WebService.RetrofitClient.webService.getJSON("api/pwlimage/")
+
+        call.enqueue(object : Callback<List<imageUser>> {
+
+            override fun onFailure(call: Call<List<imageUser>>, t: Throwable) {
+                t.message?.let {
+                    println(it)
+
+                }
+
+
+            }
+
+
+            override fun onResponse(
+                call: Call<List<imageUser>>?,
+                response: Response<List<imageUser>>?
+            ) {
+
+                if (!response!!.isSuccessful) {
+                    println(response.code())
+
+                    return
+
+                }
+
+                val cityList = response.body()
+
+                if (cityList != null) {
+                    for (d in cityList.indices) {
+                        listImage.add(imageUser(cityList[d].photo_url))
+                    }
+                    binding.rvSelectorImage.adapter =
+                        SelectorImageAdapter(listImage, this@RegisterFragment)
+                    println(cityList)
+                }
+            }
+        })
     }
 
     private fun visibilityImage() {

@@ -46,7 +46,7 @@ class ResultActivity : AppCompatActivity() {
 
     private fun animateProgressResult(count:Int){
         val result = (count*100)/size
-        //Pon aquí tu animaci´´on
+        //Pon aquí tu animacion
        // val anim = CircularAnimation( progressBar = binding.pbLvl, to = result)
         //anim.duration = 1000
         //binding.pbLvl.startAnimation(anim)

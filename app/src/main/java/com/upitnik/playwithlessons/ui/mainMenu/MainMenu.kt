@@ -98,53 +98,9 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
         binding.rvSubjectMainMenu.adapter = SubjectAdapter(listSubject, this@MainMenu)
     }
 
-    fun TestAPI() {
-        val retrofit = WebService.RetrofitClient.webService
-        /*val retrofit = Retrofit.Builder()
-            .baseUrl(AppConstants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()*/
-        //val httpService = retrofit.create(WebService::class.java)
-
-        val call: Call<Courses> =
-            WebService.RetrofitClient.webService.getJSON("api/pwlassignatura")
-
-        call.enqueue(object : Callback<Courses> {
-
-            override fun onFailure(call: Call<Courses>, t: Throwable) {
-                t.message?.let {
-                    println(it)
-
-                }
-
-
-            }
-
-
-            override fun onResponse(call: Call<Courses>?, response: Response<Courses>?) {
-
-                if (!response!!.isSuccessful) {
-                    println(response.code())
-
-                    return
-
-                }
-
-                val cityList = response.body()
-
-                if (cityList != null) {
-                    println("ID: ${cityList.id} Name: ${cityList.name}")
-
-
-                }
-            }
-        })
-    }
-
     override fun onSubjectClicked(Subject: Subject) {
         binding.root.findNavController()
             .navigate(R.id.action_mainMenu_to_menulevels)
     }
-
 
 }
