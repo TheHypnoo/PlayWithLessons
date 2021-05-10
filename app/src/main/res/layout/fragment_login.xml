@@ -4,15 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ui.auth.LoginFragment">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="723dp"
-        android:layout_height="425dp"
-        android:alpha="0.5"
-        android:contentDescription="logo Image Top"
-        android:src="@drawable/ic_playwithlessons"
+        android:layout_width="425dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_geography_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--        android:layout_width="723dp"
+        android:layout_height="425dp"-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sketchzone"
+        android:text="Play\nWith\nLessons"
+        android:textColor="@color/black"
+        android:textSize="52sp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -110,35 +110,22 @@
         android:id="@+id/tvStatsQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:text="Stats Questions"
-        android:textSize="32sp"
+        android:layout_marginStart="16dp"
+        android:text="Stats"
         app:layout_constraintBottom_toTopOf="@+id/acertadas"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvAchievement" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/acertadas"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvStatsQuestion" />
 
     <LinearLayout
         android:id="@+id/acertadas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:gravity="start"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvAchievement"
-        app:layout_constraintVertical_bias="0.3">
+        app:layout_constraintVertical_bias="0.1">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
@@ -157,7 +144,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,7 +154,16 @@
             android:textSize="26sp" />
     </LinearLayout>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fallados"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acertadas" />
+
     <LinearLayout
+        android:id="@+id/fallados"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -176,8 +172,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvAchievement"
-        app:layout_constraintVertical_bias="0.6">
+        app:layout_constraintTop_toBottomOf="@id/acertadas"
+        app:layout_constraintVertical_bias="0.2">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
@@ -196,7 +192,7 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -210,10 +206,10 @@
         android:id="@+id/tvSignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Cerrar Sesión"
         android:layout_margin="16dp"
+        android:text="Cerrar Sesión"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

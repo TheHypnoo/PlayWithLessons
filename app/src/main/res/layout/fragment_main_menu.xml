@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/yellow"
     tools:context=".ui.mainMenu.MainMenu">
+
+    <TextView
+        android:id="@+id/tvNameApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeMinTextSize="24dp"
+        android:fontFamily="@font/sketchzone"
+        android:text="Play\nWith\nLessons"
+        android:textColor="@color/black"
+        android:textSize="42sp"
+        app:layout_constraintBottom_toTopOf="@+id/rvSubjectMainMenu"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/mcv_user"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcv_user"
@@ -13,10 +29,12 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/rvSubjectMainMenu"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        card_view:cardBackgroundColor="@android:color/transparent"
         card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="5dp">
+        card_view:cardElevation="0dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,7 +53,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:hint="TheHypnoo"
-                    android:textColorHint="@color/purple"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
                     android:textSize="24dp"
                     app:layout_constraintRight_toLeftOf="@+id/civ_user"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +65,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_playwithlessons"
+                    android:src="@drawable/ic_instagram"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="6dp"
                     app:layout_constraintRight_toRightOf="parent"
@@ -64,18 +83,20 @@
                 android:layout_marginEnd="8dp"
                 android:max="100"
                 android:progress="20"
-                android:progressTint="@color/purple"
+                android:progressTint="@color/black"
                 app:layout_constraintRight_toLeftOf="@+id/civ_user"
                 app:layout_constraintTop_toBottomOf="@+id/tvUser" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvLevelUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Nivel 3"
-                android:textColorHint="@color/purple"
-                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
                 app:layout_constraintRight_toLeftOf="@+id/civ_user"
                 app:layout_constraintTop_toBottomOf="@+id/lpi_progress" />
 
@@ -86,55 +107,71 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSubjectMainMenu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/btnPlayGame"
+        android:layout_height="475dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRanking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcv_user" />
+        app:layout_constraintTop_toBottomOf="@+id/mcv_user"
+        tools:listitem="@layout/item_subject" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPlayGame"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Jugar"
-        android:background="@drawable/custom_button_login"
-        android:textSize="18sp"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--  <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnPlayGame"
+          android:layout_width="120dp"
+          android:layout_height="wrap_content"
+          android:text="Jugar"
+          android:background="@drawable/custom_button_login"
+          android:textSize="18sp"
+          app:backgroundTint="@null"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
 
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnRanking"
+          android:layout_width="120dp"
+          android:layout_height="wrap_content"
+          android:background="@drawable/custom_button_login"
+          android:text="Ranking"
+          android:textSize="18sp"
+          app:backgroundTint="@null"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.6" />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnSettings"
+          android:layout_width="120dp"
+          android:layout_height="wrap_content"
+          android:background="@drawable/custom_button_login"
+          android:text="Ajustes"
+          android:textSize="18sp"
+          app:backgroundTint="@null"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.7" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRanking"
-        android:layout_width="120dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button_login"
         android:text="Ranking"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/darkGreen"
+        app:layout_constraintBottom_toTopOf="@+id/civInstagram"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSettings"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button_login"
-        android:text="Ajustes"
-        android:textSize="18sp"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvSubjectMainMenu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civInstagram"

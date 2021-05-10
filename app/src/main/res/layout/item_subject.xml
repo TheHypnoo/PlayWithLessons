@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="175dp"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    card_view:cardBackgroundColor="#A9FF5722"
+    card_view:cardBackgroundColor="@color/cardview_dark_background"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true">
@@ -13,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/ivSubject"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_playwithlessons" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -48,22 +48,22 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:gravity="end"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_difficulty_low"
+                android:layout_marginEnd="16dp"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Dificultad: Facil"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Temp Estimado: 15 min"
+                android:text="Facil"
+                android:textColor="@color/green"
                 android:textSize="18sp"
                 android:textStyle="bold|italic" />
 

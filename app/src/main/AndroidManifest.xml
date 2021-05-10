@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@drawable/ic_playwithlessons"
+        android:icon="@drawable/ic_geography_rounded"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_playwithlessons"
+        android:roundIcon="@drawable/ic_geography_rounded"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayWithLessons"
         android:usesCleartextTraffic="true">
@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".repository.MyFirebaseMessagingService"
             android:exported="false">

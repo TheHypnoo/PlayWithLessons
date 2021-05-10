@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.ui.Subjects
 
-import com.upitnik.playwithlessons.data.model.subject.Subject
+import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 
 interface OnSubjectActionListener {
-    fun onSubjectClicked(Subject: Subject)
+    fun onSubjectClicked(Subject: SubjectsItem)
 }

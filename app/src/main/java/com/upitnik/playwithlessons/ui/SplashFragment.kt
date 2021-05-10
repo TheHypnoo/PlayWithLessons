@@ -26,7 +26,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
             }
 
-        }, 2000)
+        }, 1000)
     }
     private fun onBoardingFinished(): Boolean{
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
