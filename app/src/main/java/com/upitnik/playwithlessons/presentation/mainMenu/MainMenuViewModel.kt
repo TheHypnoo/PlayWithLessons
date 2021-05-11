@@ -17,6 +17,15 @@ class MainMenuViewModel(private val repo: MainMenuRepo) : ViewModel() {
             emit(Result.Failure(e))
         }
     }
+
+    fun getUser() = liveData(Dispatchers.IO) {
+        emit(Result.Loading())
+        try {
+            emit(Result.Sucess(repo.getUsers()))
+        } catch (e: Exception) {
+            emit(Result.Failure(e))
+        }
+    }
 }
 
 class MainMenuViewModelFactory(private val repo: MainMenuRepo) : ViewModelProvider.Factory {

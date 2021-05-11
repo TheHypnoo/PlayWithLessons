@@ -23,6 +23,16 @@
         app:layout_constraintRight_toLeftOf="@+id/mcv_user"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pbProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/rvSubjectMainMenu"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcv_user"
         android:layout_width="wrap_content"
@@ -113,6 +123,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mcv_user"
         tools:listitem="@layout/item_subject" />
+
+    <ProgressBar
+        android:id="@+id/pbSubjescts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnRanking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mcv_user" />
+
 
     <!--  <com.google.android.material.button.MaterialButton
           android:id="@+id/btnPlayGame"

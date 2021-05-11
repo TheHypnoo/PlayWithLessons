@@ -16,27 +16,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.data.model.auth.UserItem
-import com.upitnik.playwithlessons.data.model.subject.Subjects
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.data.remote.MainMenu.MainMenuDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
 import com.upitnik.playwithlessons.domain.mainMenu.MainMenuRepoImpl
 import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModel
 import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModelFactory
-import com.upitnik.playwithlessons.repository.WebService
 import com.upitnik.playwithlessons.ui.Subjects.OnSubjectActionListener
 import com.upitnik.playwithlessons.ui.Subjects.SubjectAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener {
@@ -48,7 +38,6 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             )
         )
     }
-    private val listSubjects: ArrayList<SubjectsItem> = arrayListOf()
     private var user: UserItem? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,8 +51,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             binding.tvLevelUser.text = checkExperience(user!!.experience)
             println("User encontrado")
         }
-        //getSubjects()
-        get()
+        getSubjects()
         getUser()
         binding.btnRanking.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenu_to_Ranking)
@@ -111,137 +99,69 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             Snackbar.make(binding.root, "Proximamente...", Snackbar.LENGTH_LONG)
                 .setTextColor(Color.GREEN).show()
         }
-        /*//Debe cargar las asignaturas desde la API y desde ahí coger las que solo tienen el progreso mayor a 0
-        val Matematicas = Subject("Matematicas", 0)
-        val Catalan = Subject("Catalan", 50)
-        val Ingles = Subject("Ingles", 75)
-        val Naturales = Subject("Naturales", 25)
-        val listSubject: List<Subject> =
-            listOf(Matematicas, Catalan, Ingles, Naturales, Matematicas, Catalan)
-        binding.rvSubjectMainMenu.layoutManager = GridLayoutManager(this@MainMenu.context, 2)
-        binding.rvSubjectMainMenu.adapter = SubjectAdapter(listSubject, this@MainMenu)*/
 
-    }
-
-    private fun getSubjects() {
-        listSubjects.clear()
-        val call: Call<Subjects> =
-            WebService.RetrofitClient.webService.getSubjects()
-
-        call.enqueue(object : Callback<Subjects> {
-
-            override fun onFailure(call: Call<Subjects>, t: Throwable) {
-                t.message?.let {
-                    println(it)
-
-                }
-
-
-            }
-
-
-            override fun onResponse(
-                call: Call<Subjects>?,
-                response: Response<Subjects>?
-            ) {
-
-                if (!response!!.isSuccessful) {
-                    println(response.code())
-
-                    return
-
-                }
-
-                val cityList = response.body()
-
-                if (cityList != null) {
-                    for (d in cityList.indices) {
-                        listSubjects.add(
-                            SubjectsItem(
-                                cityList[d].gamemode,
-                                cityList[d].id,
-                                cityList[d].image,
-                                cityList[d].name
-                            )
-                        )
-                    }
-                    binding.rvSubjectMainMenu.layoutManager =
-                        GridLayoutManager(this@MainMenu.context, 2)
-                    binding.rvSubjectMainMenu.adapter =
-                        SubjectAdapter(listSubjects, this@MainMenu)
-                }
-            }
-        })
     }
 
     private fun getUser() {
-        val call: Call<List<UserItem>> =
-            WebService.RetrofitClient.webService.getUsers()
-
-        call.enqueue(object : Callback<List<UserItem>> {
-
-            override fun onFailure(call: Call<List<UserItem>>, t: Throwable) {
-                t.message?.let {
-                    println(it)
-
+        viewModel.getUser().observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Loading -> {
+                    binding.pbProfile.visibility = View.VISIBLE
+                    binding.mcvUser.visibility = View.GONE
                 }
+                is Result.Sucess -> {
+                    binding.pbProfile.visibility = View.GONE
+                    binding.mcvUser.visibility = View.VISIBLE
+                    Toast.makeText(
+                        requireContext(),
+                        "Welcome ${result.data.nickname}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    user = result.data
+                    Glide.with(binding.root.context).load(user!!.image).into(binding.civUser)
+                    binding.tvUser.text = user!!.nickname
+                    binding.lpiProgress.progress = user!!.experience
 
-
-            }
-
-
-            override fun onResponse(
-                call: Call<List<UserItem>>?,
-                response: Response<List<UserItem>>?
-            ) {
-
-                if (!response!!.isSuccessful) {
-                    println(response.code())
-
-                    return
-
+                    binding.tvLevelUser.text = checkExperience(user!!.experience)
                 }
-
-                val cityList = response.body()
-
-                if (cityList != null) {
-                    val auth = FirebaseAuth.getInstance().currentUser!!.uid
-                    cityList.forEach {
-                        if (it.uid == auth) {
-                            user = it
-                            Glide.with(binding.root.context).load(user!!.image)
-                                .into(binding.civUser)
-                            binding.tvUser.text = user!!.nickname
-                            binding.lpiProgress.progress = user!!.experience
-
-                            binding.tvLevelUser.text = checkExperience(user!!.experience)
-                        }
-                    }
+                is Result.Failure -> {
+                    binding.pbProfile.visibility = View.VISIBLE
+                    binding.mcvUser.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: ${result.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })
     }
 
-    private fun get(){
+    private fun getSubjects() {
         viewModel.getSubjects().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
-                    //binding.progressBar.visibility = View.VISIBLE
+                    binding.pbSubjescts.visibility = View.VISIBLE
+                    binding.rvSubjectMainMenu.visibility = View.GONE
                 }
                 is Result.Sucess -> {
-                    //binding.progressBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        "Welcome ${result.data}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    if(result.data.isNotEmpty()){
-                        binding.rvSubjectMainMenu.layoutManager = GridLayoutManager(this@MainMenu.context, 2)
-                        binding.rvSubjectMainMenu.adapter = SubjectAdapter(result.data, this@MainMenu)
+                    binding.pbSubjescts.visibility = View.GONE
+                    binding.rvSubjectMainMenu.visibility = View.VISIBLE
+                    /* Toast.makeText(
+                         requireContext(),
+                         "Welcome ${result.data}",
+                         Toast.LENGTH_SHORT
+                     ).show()*/
+                    if (result.data.isNotEmpty()) {
+                        binding.rvSubjectMainMenu.layoutManager =
+                            GridLayoutManager(this@MainMenu.context, 2)
+                        binding.rvSubjectMainMenu.adapter =
+                            SubjectAdapter(result.data, this@MainMenu)
                     }
                 }
                 is Result.Failure -> {
-                    //binding.progressBar.visibility = View.GONE
+                    binding.pbSubjescts.visibility = View.VISIBLE
+                    binding.rvSubjectMainMenu.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",
