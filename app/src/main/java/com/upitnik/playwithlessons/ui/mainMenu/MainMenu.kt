@@ -7,8 +7,10 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,17 +18,22 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.data.model.subject.Subjects
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
-import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
+import com.upitnik.playwithlessons.data.remote.MainMenu.MainMenuDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
-import com.upitnik.playwithlessons.domain.auth.AuthRepoImpl
-import com.upitnik.playwithlessons.presentation.auth.AuthViewModel
-import com.upitnik.playwithlessons.presentation.auth.AuthViewModelFactory
+import com.upitnik.playwithlessons.domain.mainMenu.MainMenuRepoImpl
+import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModel
+import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModelFactory
 import com.upitnik.playwithlessons.repository.WebService
 import com.upitnik.playwithlessons.ui.Subjects.OnSubjectActionListener
 import com.upitnik.playwithlessons.ui.Subjects.SubjectAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,10 +41,10 @@ import retrofit2.Response
 
 class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener {
     private lateinit var binding: FragmentMainMenuBinding
-    private val viewModel by viewModels<AuthViewModel> {
-        AuthViewModelFactory(
-            AuthRepoImpl(
-                AuthDataSource()
+    private val viewModel by viewModels<MainMenuViewModel> {
+        MainMenuViewModelFactory(
+            MainMenuRepoImpl(
+                MainMenuDataSource()
             )
         )
     }
@@ -55,7 +62,8 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             binding.tvLevelUser.text = checkExperience(user!!.experience)
             println("User encontrado")
         }
-        getSubjects()
+        //getSubjects()
+        get()
         getUser()
         binding.btnRanking.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenu_to_Ranking)
@@ -198,19 +206,47 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
 
                 if (cityList != null) {
                     val auth = FirebaseAuth.getInstance().currentUser!!.uid
-                    for (d in cityList.indices) {
-                        if (cityList[d].uid == auth) {
-                            println(cityList[d])
-                            user = cityList[d]
+                    cityList.forEach {
+                        if (it.uid == auth) {
+                            user = it
                             Glide.with(binding.root.context).load(user!!.image)
                                 .into(binding.civUser)
                             binding.tvUser.text = user!!.nickname
                             binding.lpiProgress.progress = user!!.experience
 
                             binding.tvLevelUser.text = checkExperience(user!!.experience)
-                            println("User encontrado")
                         }
                     }
+                }
+            }
+        })
+    }
+
+    private fun get(){
+        viewModel.getSubjects().observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Loading -> {
+                    //binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Sucess -> {
+                    //binding.progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        "Welcome ${result.data}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    if(result.data.isNotEmpty()){
+                        binding.rvSubjectMainMenu.layoutManager = GridLayoutManager(this@MainMenu.context, 2)
+                        binding.rvSubjectMainMenu.adapter = SubjectAdapter(result.data, this@MainMenu)
+                    }
+                }
+                is Result.Failure -> {
+                    //binding.progressBar.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: ${result.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         })

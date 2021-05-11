@@ -10,7 +10,7 @@ import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.databinding.ItemSubjectBinding
 
 class SubjectAdapter(
-    private val subject: List<SubjectsItem>,
+    private var subject: List<SubjectsItem>,
     private val OnSubjectClick: OnSubjectActionListener
 ) : RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>() {
 
