@@ -1,4 +1,4 @@
-package com.upitnik.playwithlessons.data.remote.MainMenu
+package com.upitnik.playwithlessons.data.remote.mainMenu
 
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.data.model.auth.UserItem
@@ -27,49 +27,6 @@ class MainMenuDataSource {
                 Subjects = listSubjects.toList()
             }
         }
-
-        /*  call.enqueue(object : Callback<Subjects> {
-
-              override fun onFailure(call: Call<Subjects>, t: Throwable) {
-                  t.message?.let {
-                      println(it)
-
-                  }
-
-
-              }
-
-
-              override fun onResponse(
-                  call: Call<Subjects>?,
-                  response: Response<Subjects>?
-              ) {
-
-                  if (!response!!.isSuccessful) {
-                      println(response.code())
-
-                      return
-
-                  }
-                  CoroutineScope(Dispatchers.IO).launch {
-                      withContext(Dispatchers.IO) {
-                          response.body()?.forEach {
-                              listSubjects.add(
-                                  SubjectsItem(
-                                      it.gamemode,
-                                      it.id,
-                                      it.image,
-                                      it.name
-                                  )
-                              )
-                              Subjects = listSubjects.toList()
-                          }
-
-                          println("Metido 1 ${listSubjects[0]}")
-                      }
-                  }
-              }
-          })*/
         println(listSubjects)
         return Subjects
     }

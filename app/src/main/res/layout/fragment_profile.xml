@@ -34,7 +34,14 @@
             card_view:cardCornerRadius="10dp"
             card_view:cardElevation="5dp">
 
+            <ProgressBar
+                android:id="@+id/pbProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_imageUser"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="center_horizontal|top"
@@ -43,7 +50,7 @@
                 app:civ_border_width="6dp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
@@ -52,7 +59,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvLevelUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
@@ -74,7 +81,7 @@
                     android:src="@drawable/ic_trophy" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tvScoreUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|bottom"
@@ -95,10 +102,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cabezera" />
 
+    <ProgressBar
+        android:id="@+id/pbAchievements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_archivement" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAchievement"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -147,6 +163,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/tvAcertadas"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -195,6 +212,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/tvFallados"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"

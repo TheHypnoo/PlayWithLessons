@@ -2,6 +2,7 @@ package com.upitnik.playwithlessons.repository
 
 import com.google.gson.GsonBuilder
 import com.upitnik.playwithlessons.application.AppConstants
+import com.upitnik.playwithlessons.data.model.achievements.Achievements
 import com.upitnik.playwithlessons.data.model.auth.ImagesRegister
 import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.data.model.subject.Subjects
@@ -24,6 +25,9 @@ interface WebService {
 
     @GET("api/pwlUserspwl")
     fun getUsers(): Call<List<UserItem>>
+
+    @GET("api/pwlAchievements")
+    fun getAchievements(): Call<List<Achievements>>
 
     @Headers("Content-Type: application/json")
     @POST("api/pwlUserspwl")

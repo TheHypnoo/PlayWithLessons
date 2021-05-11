@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.auth.Achievement
+import com.upitnik.playwithlessons.data.model.achievements.Achievements
 import com.upitnik.playwithlessons.databinding.ItemAchievementsBinding
 
-class AchievementsAdapter(private val listAchievements: List<Achievement>) :
+class AchievementsAdapter(
+    private val listAchievements: List<Achievements>,
+    private val scoreUser: Int
+) :
     RecyclerView.Adapter<AchievementsAdapter.AchievementHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AchievementHolder {
@@ -18,7 +21,7 @@ class AchievementsAdapter(private val listAchievements: List<Achievement>) :
     }
 
     override fun onBindViewHolder(holder: AchievementHolder, position: Int) {
-        holder.render(listAchievements[position])
+        holder.render(listAchievements[position], scoreUser)
     }
 
     override fun getItemCount(): Int = listAchievements.size
@@ -26,10 +29,17 @@ class AchievementsAdapter(private val listAchievements: List<Achievement>) :
     class AchievementHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemAchievementsBinding.bind(view)
 
-        fun render(achievement: Achievement) {
+        fun render(achievement: Achievements, scoreUser: Int) {
             println(achievement.image)
-            Glide.with(binding.root.context).load(achievement.image)
-                .into(binding.civImageAchievement)
+            if (achievement.score < scoreUser) {
+                Glide.with(binding.root.context).load(achievement.image)
+                    .into(binding.civImageAchievement)
+            } else {
+                Glide.with(binding.root.context)
+                    .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwtxG2BX3piRbiBhc8EUPbBn-kDjQ5SnNMuA&usqp=CAU")
+                    .into(binding.civImageAchievement)
+            }
+
             binding.tvNameAchievement.text = achievement.name
 
         }

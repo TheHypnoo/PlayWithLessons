@@ -20,7 +20,7 @@ import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
-import com.upitnik.playwithlessons.data.remote.MainMenu.MainMenuDataSource
+import com.upitnik.playwithlessons.data.remote.mainMenu.MainMenuDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
 import com.upitnik.playwithlessons.domain.mainMenu.MainMenuRepoImpl
 import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModel
