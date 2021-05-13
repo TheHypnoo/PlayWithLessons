@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.core.extensions.load
 import com.upitnik.playwithlessons.databinding.FragmentThirdScreenBinding
 
 class ThirdScreen : Fragment(R.layout.fragment_third_screen) {
@@ -16,11 +17,11 @@ class ThirdScreen : Fragment(R.layout.fragment_third_screen) {
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
         binding = FragmentThirdScreenBinding.bind(view)
+        binding.ivMain.load("https://www.trecebits.com/wp-content/uploads/2020/02/meme-kid.jpg")
 
         binding.tvFinish.setOnClickListener {
             findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
             //onBoardingFinished()
-            //Lo dejo así para tema pruebas
         }
         binding.tvPrevious.setOnClickListener {
             viewPager?.currentItem = 1

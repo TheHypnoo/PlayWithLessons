@@ -30,7 +30,6 @@ class AchievementsAdapter(
         val binding = ItemAchievementsBinding.bind(view)
 
         fun render(achievement: Achievements, scoreUser: Int) {
-            println(achievement.image)
             if (achievement.score < scoreUser) {
                 Glide.with(binding.root.context).load(achievement.image)
                     .into(binding.civImageAchievement)
@@ -39,7 +38,6 @@ class AchievementsAdapter(
                     .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwtxG2BX3piRbiBhc8EUPbBn-kDjQ5SnNMuA&usqp=CAU")
                     .into(binding.civImageAchievement)
             }
-
             binding.tvNameAchievement.text = achievement.name
 
         }

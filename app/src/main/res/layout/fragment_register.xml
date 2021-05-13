@@ -39,6 +39,13 @@
         android:orientation="horizontal"
         android:layout_margin="16dp"/>
 
+    <ProgressBar
+        android:id="@+id/pbImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civSelectImage"
         android:layout_width="100dp"

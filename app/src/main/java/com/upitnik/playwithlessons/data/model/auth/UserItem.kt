@@ -4,6 +4,7 @@ import java.io.Serializable
 
 
 data class UserItem(
+    val id: Int,
     val uid: String,
     val email: String,
     val experience: Int,

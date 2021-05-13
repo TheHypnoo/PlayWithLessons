@@ -69,11 +69,11 @@
         android:name="com.upitnik.playwithlessons.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
-    <action
-        android:id="@+id/action_profile_to_loginFragment"
-        app:destination="@id/loginFragment"
-        app:popUpTo="@id/main_graph.xml"
-        app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_profile_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/main_graph.xml"
+            app:popUpToInclusive="false" />
     </fragment>
     <!--Main Menu-->
     <fragment
@@ -81,9 +81,6 @@
         android:name="com.upitnik.playwithlessons.ui.mainMenu.MainMenu"
         android:label="fragment_main_menu"
         tools:layout="@layout/fragment_main_menu">
-        <action
-            android:id="@+id/action_mainMenu_to_selectSubject"
-            app:destination="@id/menuSelectSubject" />
         <action
             android:id="@+id/action_mainMenu_to_menulevels"
             app:destination="@id/menulevels" />
@@ -99,16 +96,10 @@
         android:id="@+id/Ranking"
         android:name="com.upitnik.playwithlessons.ui.ranking.RankingFragment"
         android:label="fragment_ranking"
-        tools:layout="@layout/fragment_ranking" />
-    <!--Menu select Subject-->
-    <fragment
-        android:id="@+id/menuSelectSubject"
-        android:name="com.upitnik.playwithlessons.ui.Subjects.SubjectFragment"
-        android:label="fragment_menu_subject"
-        tools:layout="@layout/fragment_subject">
+        tools:layout="@layout/fragment_ranking">
         <action
-            android:id="@+id/action_menuSelectSubject_to_menulevels"
-            app:destination="@id/menulevels" />
+            android:id="@+id/action_Ranking_to_Profile"
+            app:destination="@id/fragment_profile" />
     </fragment>
     <!--Menu Levels-->
     <fragment

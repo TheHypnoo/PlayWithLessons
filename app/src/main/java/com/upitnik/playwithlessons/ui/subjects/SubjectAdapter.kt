@@ -1,4 +1,4 @@
-package com.upitnik.playwithlessons.ui.Subjects
+package com.upitnik.playwithlessons.ui.subjects
 
 import android.view.LayoutInflater
 import android.view.View
@@ -31,11 +31,9 @@ class SubjectAdapter(
 
         fun render(subject: SubjectsItem, onSubjectClick: OnSubjectActionListener) {
             binding.tvNameSubject.text = subject.name
-            Glide.with(binding.root.context).load(subject.image).into(binding.ivSubject)
+            binding.pbSubject.progress = subject.progress
 
-            /*Te lleva al apartado de niveles enviandole la asignatura para que ya desde el
-                Fragment Menu Levels carge los niveles
-             */
+            Glide.with(binding.root.context).load(subject.image).into(binding.ivSubject)
             binding.root.setOnClickListener {
                 onSubjectClick.onSubjectClicked(subject)
             }

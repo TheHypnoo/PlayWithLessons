@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ui.onBoarding.screens.FirstScreen">
 
     <ImageView
@@ -18,11 +19,11 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:fontFamily="@font/mulish_main"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:textColor="@color/white"
-        android:text="Esto es un mensaje"
+        android:fontFamily="@font/mulish_main"
+        android:text="Play With Lessons"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +38,7 @@
         android:fontFamily="@font/mulish_main"
         android:text="The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham."
         android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

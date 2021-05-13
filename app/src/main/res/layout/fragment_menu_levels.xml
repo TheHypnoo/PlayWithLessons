@@ -6,16 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".ui.levels.MenuLevelsFragment">
 
+    <TextView
+        android:id="@+id/tvSelectLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Select Level"
+        android:textColor="@color/yellow"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvLevels"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLevels"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_level"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectLevel"
+        tools:listitem="@layout/item_level" />
+
+    <ProgressBar
+        android:id="@+id/pbSelectLevels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectLevel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

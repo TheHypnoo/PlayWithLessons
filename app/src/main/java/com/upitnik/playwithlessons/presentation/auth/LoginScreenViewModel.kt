@@ -36,6 +36,15 @@ class AuthViewModel(private val repo: AuthRepo): ViewModel(){
         }
     }
 
+    fun getImages() = liveData(Dispatchers.IO) {
+        emit(Result.Loading())
+        try {
+            emit(Result.Sucess(repo.getImages()))
+        } catch (e: Exception) {
+            emit(Result.Failure(e))
+        }
+    }
+
 }
 
 class AuthViewModelFactory(private val repo:AuthRepo): ViewModelProvider.Factory{

@@ -44,10 +44,10 @@ class ResultActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { resetTest() }
     }
 
-    private fun animateProgressResult(count:Int){
-        val result = (count*100)/size
+    private fun animateProgressResult(count: Int) {
+        val result = (count * 100) / size
         //Pon aquí tu animacion
-       // val anim = CircularAnimation( progressBar = binding.pbLvl, to = result)
+        // val anim = CircularAnimation( progressBar = binding.pbLvl, to = result)
         //anim.duration = 1000
         //binding.pbLvl.startAnimation(anim)
     }
@@ -61,7 +61,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun resetTest(){
+    private fun resetTest() {
         startActivity(ActivityQuestions.create(this))
     }
 

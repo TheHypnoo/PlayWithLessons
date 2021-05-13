@@ -2,16 +2,13 @@ package com.upitnik.playwithlessons.data.remote.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
 import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.repository.WebService
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import retrofit2.await
 
 class AuthDataSource {
 
@@ -24,68 +21,38 @@ class AuthDataSource {
     suspend fun signUp(
         email: String,
         password: String,
-        username: String,
+        nickname: String,
         image: String
     ): FirebaseUser? {
         val authResult =
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).await()
-        registerApi(email, username, image)
+        singUpApi(email, nickname, image)
         return authResult.user
     }
 
-    private suspend fun registerApi(email: String, username: String, image: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.IO) {
-                val call: Call<UserItem> =
-                    WebService.RetrofitClient.webService.createUser(
-                        UserItem(
-                            FirebaseAuth.getInstance().currentUser!!.uid,
-                            email,
-                            0,
-                            image,
-                            username,
-                            1,
-                            0
-                        )
-                    )
-
-                call.enqueue(object : Callback<UserItem> {
-
-                    override fun onFailure(call: Call<UserItem>, t: Throwable) {
-                        t.message?.let {
-                            println("ERROR USER: $it")
-
-                        }
-
-
-                    }
-
-
-                    override fun onResponse(
-                        call: Call<UserItem>?,
-                        response: Response<UserItem>?
-                    ) {
-
-                        if (!response!!.isSuccessful) {
-                            println("ERROR USER NO SUCCES: " + response.code())
-
-                            return
-
-                        }
-
-                        val cityList = response.body()
-
-                        if (cityList != null) {
-                            println(cityList)
-                            println("user created!")
-                        }
-                    }
-                })
-            }
-        }
+    private suspend fun singUpApi(email: String, nickname: String, image: String) {
+        val User =
+            UserItem(0,FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 1, 0)
+        WebService.RetrofitClient.webService.createUser(User).await()
     }
 
     fun signOut() {
         return FirebaseAuth.getInstance().signOut()
+    }
+
+    suspend fun getImages(): List<ImagesRegisterItem> {
+        val listImages: ArrayList<ImagesRegisterItem> = arrayListOf()
+        var images: List<ImagesRegisterItem> = listOf()
+        val call = WebService.RetrofitClient.webService.getImages().await()
+        withContext(Dispatchers.IO) {
+            listImages.clear()
+            call.forEach { image ->
+                listImages.add(
+                    ImagesRegisterItem(image.id, image.url)
+                )
+                images = listImages.toList()
+            }
+        }
+        return images
     }
 }

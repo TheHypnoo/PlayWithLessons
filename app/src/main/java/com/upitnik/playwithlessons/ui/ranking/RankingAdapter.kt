@@ -6,10 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.auth.User
+import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.databinding.ItemRankingBinding
 
-class RankingAdapter(private val listUsers: List<User>) :
+class RankingAdapter(
+    private val listUsers: List<UserItem>,
+    private val OnUserClick: RankingFragment
+) :
     RecyclerView.Adapter<RankingAdapter.RankingHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingHolder {
@@ -18,7 +21,7 @@ class RankingAdapter(private val listUsers: List<User>) :
     }
 
     override fun onBindViewHolder(holder: RankingHolder, position: Int) {
-        holder.render(listUsers[position])
+        holder.render(listUsers[position], OnUserClick)
     }
 
     override fun getItemCount(): Int = listUsers.size
@@ -26,10 +29,13 @@ class RankingAdapter(private val listUsers: List<User>) :
     class RankingHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemRankingBinding.bind(view)
 
-        fun render(user: User) {
-            binding.tvUsername.text = user.username
+        fun render(user: UserItem, OnUserClick: OnUserActionListener) {
+            binding.tvUsername.text = user.nickname
             binding.tvScoreUser.text = user.score.toString()
-            Glide.with(binding.root.context).load(user.photo_url).into(binding.civImageUser)
+            Glide.with(binding.root.context).load(user.image).into(binding.civImageUser)
+            binding.root.setOnClickListener {
+                OnUserClick.onUserClick(user)
+            }
 
         }
     }

@@ -1,4 +1,4 @@
-package com.upitnik.playwithlessons.ui.Subjects
+package com.upitnik.playwithlessons.ui.subjects
 
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 

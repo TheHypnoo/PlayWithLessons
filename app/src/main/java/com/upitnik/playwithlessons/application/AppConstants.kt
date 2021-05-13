@@ -2,6 +2,6 @@ package com.upitnik.playwithlessons.application
 
 object AppConstants {
     //API, aquí tienes que introducir los datos de tu API
-    const val BASE_URL = "http://192.168.43.8:8000/"
+    const val BASE_URL = "http://192.168.1.42:8000/"
     const val API_KEY = "vVFadi3KKnHtsnJAykFClDGAUvDrgwKFE1peZ5ea"
 }

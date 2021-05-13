@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.ui.auth
 
-import com.upitnik.playwithlessons.data.model.auth.imageUser
+import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
 
 interface OnImageActionListener {
-    fun onImageClick(imageUser: imageUser)
+    fun onImageClick(imageUser: ImagesRegisterItem)
 }

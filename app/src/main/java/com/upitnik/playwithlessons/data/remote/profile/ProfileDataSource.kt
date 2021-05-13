@@ -12,12 +12,13 @@ class ProfileDataSource {
 
     suspend fun getUser(): UserItem {
         val auth = FirebaseAuth.getInstance().uid
-        var User = UserItem("", "", 0, "", "", 0, 0)
+        var User = UserItem(0,"", "", 0, "", "", 0, 0)
         val call = WebService.RetrofitClient.webService.getUsers().await()
         withContext(Dispatchers.IO) {
             call.forEach { user ->
                 if (user.uid == auth) {
                     User = UserItem(
+                        user.id,
                         user.uid,
                         user.email,
                         user.experience,

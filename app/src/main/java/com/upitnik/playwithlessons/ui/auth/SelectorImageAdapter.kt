@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.auth.imageUser
+import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
 import com.upitnik.playwithlessons.databinding.ItemPhotoBinding
 
 
 class SelectorImageAdapter(
-    private val listLevels: List<imageUser>,
+    private val listLevels: List<ImagesRegisterItem>,
     private val OnImageClick: OnImageActionListener
 ) :
     RecyclerView.Adapter<SelectorImageAdapter.SelectorImageHolder>() {
@@ -32,8 +32,8 @@ class SelectorImageAdapter(
     ) : RecyclerView.ViewHolder(view) {
         val binding = ItemPhotoBinding.bind(view)
 
-        fun render(imageUser: imageUser, OnImageClick: OnImageActionListener) {
-            Glide.with(binding.root.context).load(imageUser.photo_url).into(binding.civImage)
+        fun render(imageUser: ImagesRegisterItem, OnImageClick: OnImageActionListener) {
+            Glide.with(binding.root.context).load(imageUser.url).into(binding.civImage)
 
             binding.civImage.setOnClickListener {
                 OnImageClick.onImageClick(imageUser)
