@@ -116,7 +116,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                                 0,
                                 image,
                                 username,
-                                1,
                                 0
                             )
                         )

@@ -23,14 +23,12 @@ class RankingDataSource {
                         user.experience,
                         user.image,
                         user.nickname,
-                        user.question,
                         user.score
                     )
                 )
                 users = listUsers.toList()
             }
         }
-        println(listUsers)
         return users
     }
 }

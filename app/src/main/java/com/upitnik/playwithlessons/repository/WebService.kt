@@ -7,27 +7,21 @@ import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
 import com.upitnik.playwithlessons.data.model.auth.UserItem
 import com.upitnik.playwithlessons.data.model.difficulty.Difficulty
 import com.upitnik.playwithlessons.data.model.levels.Levels
-import com.upitnik.playwithlessons.data.model.progress.Progress
-import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
+import com.upitnik.playwithlessons.data.model.questions.Question
+import com.upitnik.playwithlessons.data.model.subject.Subject
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface WebService {
     //Aqui todas las llamadas a las API
     @GET("api/pwlimage")
     fun getImages(): Call<List<ImagesRegisterItem>>
 
-    @GET("api/pwlSubject")
-    fun getSubjects(): Call<List<SubjectsItem>>
-
-    @GET("api/pwlProgress")
-    fun getProgress(): Call<List<Progress>>
+    @GET("api/pwlProgressandSubject/{uid}")
+    fun getSubjects(@Path("uid") uid: String): Call<List<Subject>>
 
     @GET("api/pwlUserspwl")
     fun getUsers(): Call<List<UserItem>>
@@ -35,18 +29,25 @@ interface WebService {
     @GET("api/pwlAchievements")
     fun getAchievements(): Call<List<Achievements>>
 
-    @GET("api/pwlLevels")
-    fun getLevels(): Call<List<Levels>>
+    @GET("api/pwlLevels/{id}")
+    fun getLevels(@Path("id") id: Int?): Call<List<Levels>>
 
     @GET("api/pwlDifficulty")
     fun getDifficulty(): Call<List<Difficulty>>
+    //NO SE CUANDO HARE ESTO VALE?!
 
     @Headers("Content-Type: application/json")
-    @POST("api/pwlUserspwl")
+    @GET("api/pwlQuestions/{idLevel}/{idSubject}")
+    fun getQuestions(
+        @Path("idLevel") idLevel: Int,
+        @Path("idSubject") idSubject: Int
+    ): Call<List<Question>>
+
+    @Headers("Content-Type: application/json")
+    @POST("api/pwlUserAndProgress")
     fun createUser(
         @Body userspwls: UserItem
     ): Call<UserItem>
-
 
     object RetrofitClient {
         val webService: WebService by lazy {

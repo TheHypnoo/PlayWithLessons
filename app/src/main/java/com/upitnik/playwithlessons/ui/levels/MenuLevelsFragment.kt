@@ -13,30 +13,24 @@ import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.gone
 import com.upitnik.playwithlessons.core.extensions.invisible
 import com.upitnik.playwithlessons.core.extensions.visible
-import com.upitnik.playwithlessons.data.model.levels.Levels
-import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
-import com.upitnik.playwithlessons.data.remote.mainMenu.MainMenuDataSource
+import com.upitnik.playwithlessons.data.model.subject.Subject
+import com.upitnik.playwithlessons.data.remote.levels.LevelsDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMenuLevelsBinding
-import com.upitnik.playwithlessons.domain.mainMenu.MainMenuRepoImpl
-import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModel
-import com.upitnik.playwithlessons.presentation.mainMenu.MainMenuViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.upitnik.playwithlessons.domain.levels.LevelsRepoImpl
+import com.upitnik.playwithlessons.presentation.levels.LevelsViewModel
+import com.upitnik.playwithlessons.presentation.levels.LevelsViewModelFactory
 
 class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
 
     private lateinit var binding: FragmentMenuLevelsBinding
-    private val levelsViewModel by viewModels<MainMenuViewModel> {
-        MainMenuViewModelFactory(
-            MainMenuRepoImpl(
-                MainMenuDataSource()
+    private val levelsViewModel by viewModels<LevelsViewModel> {
+        LevelsViewModelFactory(
+            LevelsRepoImpl(
+                LevelsDataSource()
             )
         )
     }
-    private var subject: SubjectsItem? = null
-    private var listLevels: ArrayList<Levels> = arrayListOf()
+    private var subject: Subject? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMenuLevelsBinding.bind(view)
@@ -44,7 +38,7 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
     }
 
     fun getLevels() {
-        levelsViewModel.getLevels().observe(viewLifecycleOwner, Observer { result ->
+        levelsViewModel.getLevels(subject!!.id).observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
                     binding.pbSelectLevels.visible()
@@ -57,7 +51,7 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
                         binding.rvLevels.layoutManager =
                             GridLayoutManager(this@MenuLevelsFragment.context, 5)
                         binding.rvLevels.adapter =
-                            LevelsAdapter(checkSubjectInLevel(result.data))
+                            LevelsAdapter(result.data, subject!!)
                     }
                 }
                 is Result.Failure -> {
@@ -74,25 +68,9 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
         })
     }
 
-    fun checkSubjectInLevel(levels: List<Levels>): ArrayList<Levels> {
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.IO) {
-                if (subject != null) {
-                    levels.forEach { level ->
-                        if (level.subject == subject!!.id) {
-                            listLevels.add(level)
-                        }
-
-                    }
-                }
-            }
-        }
-        return listLevels
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        subject = arguments?.getSerializable("Subject") as SubjectsItem?
+        subject = arguments?.getSerializable("Subject") as Subject?
     }
 
 }

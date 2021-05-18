@@ -9,10 +9,10 @@ import kotlinx.coroutines.Dispatchers
 
 class MainMenuViewModel(private val repo: MainMenuRepo) : ViewModel() {
 
-    fun getSubjects() = liveData(Dispatchers.IO) {
+    fun getSubjects(uid: String) = liveData(Dispatchers.IO) {
         emit(Result.Loading())
         try {
-            emit(Result.Sucess(repo.getSubjects()))
+            emit(Result.Sucess(repo.getSubjects(uid)))
         } catch (e: Exception) {
             emit(Result.Failure(e))
         }
@@ -27,32 +27,6 @@ class MainMenuViewModel(private val repo: MainMenuRepo) : ViewModel() {
         }
     }
 
-    fun getLevels() = liveData(Dispatchers.IO) {
-        emit(Result.Loading())
-        try {
-            emit(Result.Sucess(repo.getLevels()))
-        } catch (e: Exception) {
-            emit(Result.Failure(e))
-        }
-    }
-
-    fun getDifficulty() = liveData(Dispatchers.IO) {
-        emit(Result.Loading())
-        try {
-            emit(Result.Sucess(repo.getDifficulty()))
-        } catch (e: Exception) {
-            emit(Result.Failure(e))
-        }
-    }
-
-    fun getProgress() = liveData(Dispatchers.IO) {
-        emit(Result.Loading())
-        try {
-            emit(Result.Sucess(repo.getProgress()))
-        } catch (e: Exception) {
-            emit(Result.Failure(e))
-        }
-    }
 }
 
 class MainMenuViewModelFactory(private val repo: MainMenuRepo) : ViewModelProvider.Factory {

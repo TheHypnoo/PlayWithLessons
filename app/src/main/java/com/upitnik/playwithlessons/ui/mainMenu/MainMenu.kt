@@ -13,14 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.application.AppConstants
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.*
 import com.upitnik.playwithlessons.data.model.auth.UserItem
-import com.upitnik.playwithlessons.data.model.difficulty.Difficulty
-import com.upitnik.playwithlessons.data.model.levels.Levels
 import com.upitnik.playwithlessons.data.model.progress.Progress
+import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.data.remote.mainMenu.MainMenuDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
@@ -44,31 +44,24 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
     private var user: UserItem? = null
     private var listSubjects: List<SubjectsItem> = listOf()
     private var listProgress: List<Progress> = listOf()
-    private var listDifficulty: List<Difficulty> = listOf()
-    private var listLevels: List<Levels> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainMenuBinding.bind(view)
         if (user != null) {
-            binding.civUser.load(user!!.image)
+            binding.civUser.load(user!!.image!!)
             binding.tvUser.text = user!!.nickname
             binding.lpiProgress.progress = user!!.experience
 
             binding.tvLevelUser.text = checkExperience(user!!.experience)
         }
         CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.Main) {
+            withContext(CoroutineScope(Dispatchers.Main).coroutineContext) {
                 getUser()
                 getSubjects()
-                getProgress()
-                getLevels()
             }
         }
-        //getDifficulty()
         initClickListener()
-        checkProgressInSubject()
-
     }
 
     private fun initClickListener() {
@@ -135,7 +128,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
                     binding.pbProfile.gone()
                     binding.mcvUser.visible()
                     user = result.data
-                    binding.civUser.load(user!!.image)
+                    binding.civUser.load(user!!.image!!)
                     binding.tvUser.text = user!!.nickname
                     binding.lpiProgress.progress = checkProgressExperience(user!!.experience)
                     binding.tvLevelUser.text = checkExperience(user!!.experience)
@@ -154,143 +147,48 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
     }
 
     private suspend fun getSubjects() {
-        mainMenuViewModel.getSubjects().observe(viewLifecycleOwner, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-                    binding.pbSubjescts.visible()
-                    binding.rvSubjectMainMenu.invisible()
-                }
-                is Result.Sucess -> {
-                    /*binding.pbSubjescts.gone()
-                    binding.rvSubjectMainMenu.visible()*/
-                    if (result.data.isNotEmpty()) {
-                        listSubjects = result.data
-                        /*
-                        binding.rvSubjectMainMenu.layoutManager =
-                            GridLayoutManager(this@MainMenu.context, 2)
-                        binding.rvSubjectMainMenu.adapter =
-                            SubjectAdapter(result.data, this@MainMenu)*/
+        mainMenuViewModel.getSubjects(FirebaseAuth.getInstance().currentUser.uid)
+            .observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        binding.pbSubjescts.visible()
+                    }
+                    is Result.Sucess -> {
+                        binding.pbSubjescts.gone()
+                        binding.rvSubjectMainMenu.visible()
+                        if (result.data.isNotEmpty()) {
+
+                            binding.rvSubjectMainMenu.layoutManager =
+                                GridLayoutManager(this@MainMenu.context, 2)
+                            binding.rvSubjectMainMenu.adapter =
+                                SubjectAdapter(result.data, this@MainMenu)
+                        }
+                    }
+                    is Result.Failure -> {
+                        binding.pbSubjescts.visible()
+                        binding.rvSubjectMainMenu.invisible()
+                        Toast.makeText(
+                            requireContext(),
+                            "Error: ${result.exception}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-                is Result.Failure -> {
-                    binding.pbSubjescts.visible()
-                    binding.rvSubjectMainMenu.invisible()
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${result.exception}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
+            })
     }
 
-    private fun getLevels() {
-        mainMenuViewModel.getLevels().observe(viewLifecycleOwner, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-                    /* binding.pbSubjescts.visibility = View.VISIBLE
-                     binding.rvSubjectMainMenu.visibility = View.INVISIBLE*/
-                }
-                is Result.Sucess -> {
-                    /*binding.pbSubjescts.visibility = View.GONE
-                    binding.rvSubjectMainMenu.visibility = View.VISIBLE*/
-                    /* Toast.makeText(
-                         requireContext(),
-                         "Welcome ${result.data}",
-                         Toast.LENGTH_SHORT
-                     ).show()*/
-                    if (result.data.isNotEmpty()) {
-
-                        /*binding.rvSubjectMainMenu.layoutManager =
-                            GridLayoutManager(this@MainMenu.context, 2)
-                        binding.rvSubjectMainMenu.adapter =
-                            SubjectAdapter(result.data, this@MainMenu)*/
-                    }
-                }
-                is Result.Failure -> {
-                    /*binding.pbSubjescts.visibility = View.VISIBLE
-                    binding.rvSubjectMainMenu.visibility = View.INVISIBLE*/
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${result.exception}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-    }
-
-    private fun getDifficulty() {
-        mainMenuViewModel.getDifficulty().observe(viewLifecycleOwner, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-                    /* binding.pbSubjescts.visibility = View.VISIBLE
-                     binding.rvSubjectMainMenu.visibility = View.INVISIBLE*/
-                }
-                is Result.Sucess -> {
-                    /*binding.pbSubjescts.visibility = View.GONE
-                    binding.rvSubjectMainMenu.visibility = View.VISIBLE*/
-                    /* Toast.makeText(
-                         requireContext(),
-                         "Welcome ${result.data}",
-                         Toast.LENGTH_SHORT
-                     ).show()*/
-                    if (result.data.isNotEmpty()) {
-                        listDifficulty = result.data
-                        /*binding.rvSubjectMainMenu.layoutManager =
-                            GridLayoutManager(this@MainMenu.context, 2)
-                        binding.rvSubjectMainMenu.adapter =
-                            SubjectAdapter(result.data, this@MainMenu)*/
-                    }
-                }
-                is Result.Failure -> {
-                    /*binding.pbSubjescts.visibility = View.VISIBLE
-                    binding.rvSubjectMainMenu.visibility = View.INVISIBLE*/
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${result.exception}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-    }
-
-    private suspend fun getProgress() {
-        mainMenuViewModel.getProgress().observe(viewLifecycleOwner, Observer { result ->
-            when (result) {
-                is Result.Loading -> {
-                    binding.pbSubjescts.visible()
-                    binding.rvSubjectMainMenu.invisible()
-                }
-                is Result.Sucess -> {
-                    binding.pbSubjescts.gone()
-                    binding.rvSubjectMainMenu.visible()
-                    if (result.data.isNotEmpty()) {
-                        listProgress = result.data
-                    }
-                }
-                is Result.Failure -> {
-                    binding.pbSubjescts.visible()
-                    binding.rvSubjectMainMenu.invisible()
-                    binding.root.context.toast("Error ${result.exception}")
-                }
-            }
-        })
-    }
-
-    override fun onSubjectClicked(Subject: SubjectsItem) {
+    override fun onSubjectClicked(Subject: Subject) {
         val bundle = Bundle()
         bundle.putSerializable(
             "Subject",
-            SubjectsItem(
-                Subject.gamemode,
+            Subject(
+                Subject.gamemode_id,
                 Subject.id,
                 Subject.image,
                 Subject.name,
-                Subject.progress,
-                Subject.difficulty
+                Subject.number,
+                Subject.pwluser_id,
+                Subject.subject_id
             )
         )
         binding.root.findNavController()
@@ -326,47 +224,6 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             //10001
             5 -> experiencie.toString().substring(3, 5).toInt()
             else -> 0
-        }
-    }
-
-    private fun checkProgressInSubject() {
-        if (!listSubjects.isNull() && !listProgress.isNull() && !user.isNull()) {
-            CoroutineScope(Dispatchers.IO).launch {
-                withContext(Dispatchers.IO) {
-                    listProgress.forEach { progress ->
-                        listSubjects.forEach { subjects ->
-                            if (progress.subject == subjects.id) {
-                                if (user!!.id == progress.user) {
-                                    subjects.progress = progress.progress
-                                    println("SUBJECTS: " + subjects.progress)
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-            binding.rvSubjectMainMenu.layoutManager =
-                GridLayoutManager(this@MainMenu.context, 2)
-            binding.rvSubjectMainMenu.adapter =
-                SubjectAdapter(listSubjects, this@MainMenu)
-        }
-    }
-
-    private fun checkDifficultyinSubject() {
-        var baja = 0
-        var media = 0
-        var alta = 0
-        listLevels.forEach { level ->
-            listSubjects.forEach { subject ->
-                if (level.difficulty == 0) {
-                    baja++
-                } else if (level.difficulty == 1) {
-                    media++
-                } else if (level.difficulty == 2) {
-                    alta++
-                }
-            }
         }
     }
 

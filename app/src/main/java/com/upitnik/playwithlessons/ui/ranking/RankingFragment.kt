@@ -49,7 +49,10 @@ class RankingFragment : Fragment(R.layout.fragment_ranking), OnUserActionListene
                     binding.rvRanking.visible()
                     if (result.data.isNotEmpty()) {
                         binding.rvRanking.adapter =
-                            RankingAdapter(result.data, this@RankingFragment)
+                            RankingAdapter(
+                                result.data.sortedByDescending { it.score },
+                                this@RankingFragment
+                            )
                     }
                 }
                 is Result.Failure -> {
@@ -76,7 +79,6 @@ class RankingFragment : Fragment(R.layout.fragment_ranking), OnUserActionListene
                 user.experience,
                 user.image,
                 user.nickname,
-                user.question,
                 user.score
             )
         )

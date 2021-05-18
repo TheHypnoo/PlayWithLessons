@@ -30,11 +30,13 @@ class AuthDataSource {
         return authResult.user
     }
 
-    private suspend fun singUpApi(email: String, nickname: String, image: String) {
+    private suspend fun singUpApi(email: String, nickname: String, image: String): UserItem {
         val User =
-            UserItem(0,FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 1, 0)
+            UserItem(0, FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 0)
         WebService.RetrofitClient.webService.createUser(User).await()
+        return User
     }
+
 
     fun signOut() {
         return FirebaseAuth.getInstance().signOut()

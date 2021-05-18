@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.databinding.ItemSubjectBinding
 
 class SubjectAdapter(
-    private var subject: List<SubjectsItem>,
+    private var subject: List<Subject>,
     private val OnSubjectClick: OnSubjectActionListener
 ) : RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder>() {
 
@@ -29,9 +30,9 @@ class SubjectAdapter(
     class SubjectViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemSubjectBinding.bind(view)
 
-        fun render(subject: SubjectsItem, onSubjectClick: OnSubjectActionListener) {
+        fun render(subject: Subject, onSubjectClick: OnSubjectActionListener) {
             binding.tvNameSubject.text = subject.name
-            binding.pbSubject.progress = subject.progress
+            binding.pbSubject.progress = subject.number
 
             Glide.with(binding.root.context).load(subject.image).into(binding.ivSubject)
             binding.root.setOnClickListener {

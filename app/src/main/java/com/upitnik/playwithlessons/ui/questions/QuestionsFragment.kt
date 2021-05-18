@@ -15,8 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.questions.AnswerData
-import com.upitnik.playwithlessons.data.model.questions.QuestionData
+import com.upitnik.playwithlessons.core.extensions.isNull
+import com.upitnik.playwithlessons.data.model.questions.Answer
+import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
 
 class QuestionsFragment : Fragment(R.layout.fragment_questions) {
@@ -28,12 +29,12 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
 
     lateinit var adapter: AnswerAdapter
 
-    lateinit var question: QuestionData
+    lateinit var question: Question
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            question = it.getSerializable(INTENT_QUESTION) as QuestionData
+            question = it.getSerializable(INTENT_QUESTION) as Question
         }
     }
 
@@ -54,31 +55,38 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         }
     }
 
-    private fun checkIsCorrect(answer: AnswerData, button: Button){
-        if(answer.isCorrect){
+    private fun checkIsCorrect(answer: Answer, button: Button) {
+        if (answer.correct == 1) {
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }else{
+        } else {
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
         }
     }
 
 
-    private fun initQuestion(questions: QuestionData) {
-        initImageQuestion(questions.header)
-        initTitleQuestion(questions.title)
-        formatQuestion(questions.title)
-        initAnswerQuestion(questions.answers)
+    private fun initQuestion(questions: Question) {
+        if (!questions.image.isNull()) {
+            initImageQuestion(questions.image!!)
+        }
+        initTitleQuestion(questions.statement)
+        formatQuestion(questions.statement)
+        initAnswerQuestion(questions.answer)
     }
 
-    private fun initAnswerQuestion(answers: List<AnswerData>) {
+    private fun initAnswerQuestion(answers: List<Answer>) {
         binding.rvAnswer.layoutManager = LinearLayoutManager(requireContext())
-        adapter = AnswerAdapter(answers) { answerData, position ->  onAnswerSelected(answerData, position)}
+        adapter = AnswerAdapter(answers) { answerData, position ->
+            onAnswerSelected(
+                answerData,
+                position
+            )
+        }
         binding.rvAnswer.adapter = adapter
     }
 
-    private fun onAnswerSelected(result: AnswerData, position: Int) {
+    private fun onAnswerSelected(result: Answer, position: Int) {
         val viewHolder = binding.rvAnswer.findViewHolderForAdapterPosition(position)
-        checkIsCorrect(result, (viewHolder  as AnswerViewHolder).btnAnswer)
+        checkIsCorrect(result, (viewHolder as AnswerViewHolder).btnAnswer)
 
         listener?.onAnswerClickedQuestions(result)
     }
@@ -130,7 +138,7 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         const val INTENT_QUESTION = "intent_question"
 
         @JvmStatic
-        fun newInstance(question: QuestionData) =
+        fun newInstance(question: Question) =
             QuestionsFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(INTENT_QUESTION, question)

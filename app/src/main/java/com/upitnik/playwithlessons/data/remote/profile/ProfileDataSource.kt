@@ -12,7 +12,7 @@ class ProfileDataSource {
 
     suspend fun getUser(): UserItem {
         val auth = FirebaseAuth.getInstance().uid
-        var User = UserItem(0,"", "", 0, "", "", 0, 0)
+        var User = UserItem(0,"", "", 0, "", "", 0)
         val call = WebService.RetrofitClient.webService.getUsers().await()
         withContext(Dispatchers.IO) {
             call.forEach { user ->
@@ -24,7 +24,6 @@ class ProfileDataSource {
                         user.experience,
                         user.image,
                         user.nickname,
-                        user.question,
                         user.score
                     )
                 }

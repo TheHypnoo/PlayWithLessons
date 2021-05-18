@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.questions.AnswerData
+import com.upitnik.playwithlessons.data.model.questions.Answer
 
 class AnswerAdapter(
-    private val answer: List<AnswerData>,
-    private val onAnswerSelected: (AnswerData, Int) -> Unit
+    private val answer: List<Answer>,
+    private val onAnswerSelected: (Answer, Int) -> Unit
 ) : RecyclerView.Adapter<AnswerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerViewHolder {
