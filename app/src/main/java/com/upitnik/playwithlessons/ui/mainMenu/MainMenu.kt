@@ -18,10 +18,8 @@ import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.application.AppConstants
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.*
-import com.upitnik.playwithlessons.data.model.auth.UserItem
-import com.upitnik.playwithlessons.data.model.progress.Progress
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.model.subject.Subject
-import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.data.remote.mainMenu.MainMenuDataSource
 import com.upitnik.playwithlessons.databinding.FragmentMainMenuBinding
 import com.upitnik.playwithlessons.domain.mainMenu.MainMenuRepoImpl
@@ -41,9 +39,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             )
         )
     }
-    private var user: UserItem? = null
-    private var listSubjects: List<SubjectsItem> = listOf()
-    private var listProgress: List<Progress> = listOf()
+    private var user: User? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +65,20 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             findNavController().navigate(R.id.action_mainMenu_to_Ranking)
         }
         binding.mcvUser.setOnClickListener {
-            findNavController().navigate(R.id.action_mainMenu_to_Profile)
+            val bundle = Bundle()
+            bundle.putSerializable(
+                "User",
+                User(
+                    user!!.id,
+                    user!!.uid,
+                    user!!.email,
+                    user!!.experience,
+                    user!!.image,
+                    user!!.nickname,
+                    user!!.score
+                )
+            )
+            findNavController().navigate(R.id.action_mainMenu_to_Profile, bundle)
         }
         binding.civInstagram.setOnClickListener {
             val uri: Uri = Uri.parse("http://instagram.com/_u/upitnikofficial")
@@ -111,13 +120,13 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("${AppConstants.BASE_URL}")
+                    Uri.parse(AppConstants.BASE_URL)
                 )
             )
         }
     }
 
-    private suspend fun getUser() {
+    private fun getUser() {
         mainMenuViewModel.getUser().observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
@@ -146,8 +155,8 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
         })
     }
 
-    private suspend fun getSubjects() {
-        mainMenuViewModel.getSubjects(FirebaseAuth.getInstance().currentUser.uid)
+    private fun getSubjects() {
+        mainMenuViewModel.getSubjects(FirebaseAuth.getInstance().currentUser!!.uid)
             .observe(viewLifecycleOwner, Observer { result ->
                 when (result) {
                     is Result.Loading -> {
@@ -157,7 +166,6 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
                         binding.pbSubjescts.gone()
                         binding.rvSubjectMainMenu.visible()
                         if (result.data.isNotEmpty()) {
-
                             binding.rvSubjectMainMenu.layoutManager =
                                 GridLayoutManager(this@MainMenu.context, 2)
                             binding.rvSubjectMainMenu.adapter =
@@ -229,7 +237,7 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        user = arguments?.getSerializable("User") as UserItem?
+        user = arguments?.getSerializable("User") as User?
     }
 
 }

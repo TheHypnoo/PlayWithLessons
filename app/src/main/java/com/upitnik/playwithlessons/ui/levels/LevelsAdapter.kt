@@ -30,15 +30,7 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
 
         fun render(level: Levels, subject: Subject) {
             val bundle = Bundle()
-            bundle.putSerializable(
-                "Level",
-                Levels(
-                    level.difficulty,
-                    level.id,
-                    level.number,
-                    level.subject
-                )
-            )
+            bundle.putInt("NumberLevel", level.number)
             bundle.putSerializable(
                 "Subject",
                 Subject(

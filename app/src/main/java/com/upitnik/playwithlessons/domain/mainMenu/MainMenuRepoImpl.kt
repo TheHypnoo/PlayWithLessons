@@ -1,6 +1,6 @@
 package com.upitnik.playwithlessons.domain.mainMenu
 
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.data.remote.mainMenu.MainMenuDataSource
 
@@ -9,7 +9,7 @@ class MainMenuRepoImpl(private val dataSource: MainMenuDataSource) : MainMenuRep
         return dataSource.getSubjects(uid)
     }
 
-    override suspend fun getUsers(): UserItem {
+    override suspend fun getUsers(): User {
         return dataSource.getUser()
     }
 

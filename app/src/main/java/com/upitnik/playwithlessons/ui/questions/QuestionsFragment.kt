@@ -1,24 +1,27 @@
 package com.upitnik.playwithlessons.ui.questions
 
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.view.View
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.isNull
+import com.upitnik.playwithlessons.core.extensions.load
 import com.upitnik.playwithlessons.data.model.questions.Answer
 import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
+import com.upitnik.playwithlessons.repository.WebService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.await
 
 class QuestionsFragment : Fragment(R.layout.fragment_questions) {
 
@@ -51,16 +54,26 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
 
     private fun initImageQuestion(header: String) {
         if (header.isNotEmpty()) {
-            Glide.with(this).load(header).into(binding.ivHeader)
+            binding.ivHeader.load(header)
         }
     }
 
     private fun checkIsCorrect(answer: Answer, button: Button) {
         if (answer.correct == 1) {
+            question.stagecorrect = 1
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+            CoroutineScope(Dispatchers.IO).launch {
+                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                    updateQuestion()
+                }
+            }
         } else {
             button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
         }
+    }
+
+    private suspend fun updateQuestion() {
+        WebService.RetrofitClient.webService.putQuestion(question.id, question).await()
     }
 
 
@@ -104,34 +117,42 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         listener = null
     }
 
-    fun formatQuestion(question:String){
+    fun formatQuestion(question: String) {
 //        Usamos la palabra reservada <code>var<code> para...
         val parts = question.split("<code>")
-        if(parts.size == 1){
+        if (parts.size == 1) {
 //            return SpannableString(parts[0])
-        }else if(parts.size == 3){
-            val spannable = SpannableString("${parts[0]} ${parts[1]} ${parts[2]}")
+        } else if (parts.size == 3) {
+            val spannable =
+                SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]}")
 
             spannable.setSpan(
                 ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.orange)),
-                parts[0].length +1,  parts[0].length + parts[1].length +1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                parts[0].length, parts[0].length + parts[1].length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
 
-            spannable.setSpan(
-                BackgroundColorSpan(ContextCompat.getColor(activity as Context, R.color.primaryDarkColor)),
-                parts[0].length +1,  parts[0].length + parts[1].length +1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            /*spannable.setSpan(
+                BackgroundColorSpan(
+                    ContextCompat.getColor(
+                        activity as Context,
+                        R.color.primaryDarkColor
+                    )
+                ),
+                parts[0].length + 1, parts[0].length + parts[1].length + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )*/
 
-            spannable.setSpan(
-                StyleSpan(Typeface.NORMAL),
-                parts[0].length +1,  parts[0].length + parts[1].length +1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            /* spannable.setSpan(
+                 StyleSpan(Typeface.NORMAL),
+                 parts[0].length + 1, parts[0].length + parts[1].length + 1,
+                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+             )*/
 
 
             binding.tvQuestion.text = spannable
         }
     }
-
 
     companion object {
 

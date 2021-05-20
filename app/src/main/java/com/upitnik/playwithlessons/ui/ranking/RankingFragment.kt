@@ -11,7 +11,7 @@ import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.gone
 import com.upitnik.playwithlessons.core.extensions.visible
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.remote.ranking.RankingDataSource
 import com.upitnik.playwithlessons.databinding.FragmentRankingBinding
 import com.upitnik.playwithlessons.domain.ranking.RankingRepoImpl
@@ -68,11 +68,11 @@ class RankingFragment : Fragment(R.layout.fragment_ranking), OnUserActionListene
         })
     }
 
-    override fun onUserClick(user: UserItem) {
+    override fun onUserClick(user: User) {
         val bundle = Bundle()
         bundle.putSerializable(
             "User",
-            UserItem(
+            User(
                 user.id,
                 user.uid,
                 user.email,

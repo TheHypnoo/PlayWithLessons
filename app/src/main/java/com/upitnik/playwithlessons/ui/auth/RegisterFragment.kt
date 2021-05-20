@@ -13,9 +13,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.hideKeyboard
-import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
-import com.upitnik.playwithlessons.data.model.auth.UserItem
-import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
+import com.upitnik.playwithlessons.data.model.authentication.Images
+import com.upitnik.playwithlessons.data.model.authentication.User
+import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
 import com.upitnik.playwithlessons.databinding.FragmentRegisterBinding
 import com.upitnik.playwithlessons.domain.auth.AuthRepoImpl
 import com.upitnik.playwithlessons.presentation.auth.AuthViewModel
@@ -109,7 +109,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                         val bundle = Bundle()
                         bundle.putSerializable(
                             "User",
-                            UserItem(
+                            User(
                                 0,
                                 FirebaseAuth.getInstance().currentUser!!.uid,
                                 email,
@@ -169,7 +169,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
         return false
     }
 
-    override fun onImageClick(imageUser: ImagesRegisterItem) {
+    override fun onImageClick(imageUser: Images) {
         binding.rvSelectorImage.visibility = View.GONE
         Glide.with(binding.root.context).load(imageUser.url).into(binding.civSelectImage)
         binding.civSelectImage.borderColor =

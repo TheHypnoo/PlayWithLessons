@@ -1,8 +1,8 @@
 package com.upitnik.playwithlessons.domain.auth
 
 import com.google.firebase.auth.FirebaseUser
-import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
-import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
+import com.upitnik.playwithlessons.data.model.authentication.Images
+import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
 
 class AuthRepoImpl(private val dataSource: AuthDataSource) : AuthRepo {
     override suspend fun signIn(email: String, password: String): FirebaseUser? =
@@ -20,7 +20,7 @@ class AuthRepoImpl(private val dataSource: AuthDataSource) : AuthRepo {
         dataSource.signOut()
     }
 
-    override suspend fun getImages(): List<ImagesRegisterItem> {
+    override suspend fun getImages(): List<Images> {
         return dataSource.getImages()
     }
 }

@@ -28,7 +28,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
         }, 1000)
     }
-    private fun onBoardingFinished(): Boolean{
+
+    private fun onBoardingFinished(): Boolean {
         val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
         return sharedPref.getBoolean("Finished", false)
     }

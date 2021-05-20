@@ -1,7 +1,6 @@
 package com.upitnik.playwithlessons.data.remote.levels
 
 import com.upitnik.playwithlessons.data.model.levels.Levels
-import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.repository.WebService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

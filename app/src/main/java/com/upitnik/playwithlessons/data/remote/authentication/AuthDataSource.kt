@@ -1,9 +1,9 @@
-package com.upitnik.playwithlessons.data.remote.auth
+package com.upitnik.playwithlessons.data.remote.authentication
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.upitnik.playwithlessons.data.model.auth.ImagesRegisterItem
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.Images
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.repository.WebService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -30,11 +30,10 @@ class AuthDataSource {
         return authResult.user
     }
 
-    private suspend fun singUpApi(email: String, nickname: String, image: String): UserItem {
-        val User =
-            UserItem(0, FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 0)
-        WebService.RetrofitClient.webService.createUser(User).await()
-        return User
+    private suspend fun singUpApi(email: String, nickname: String, image: String): User {
+        val user = User(0, FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 0)
+        WebService.RetrofitClient.webService.createUser(user).await()
+        return user
     }
 
 
@@ -42,15 +41,15 @@ class AuthDataSource {
         return FirebaseAuth.getInstance().signOut()
     }
 
-    suspend fun getImages(): List<ImagesRegisterItem> {
-        val listImages: ArrayList<ImagesRegisterItem> = arrayListOf()
-        var images: List<ImagesRegisterItem> = listOf()
+    suspend fun getImages(): List<Images> {
+        val listImages: ArrayList<Images> = arrayListOf()
+        var images: List<Images> = listOf()
         val call = WebService.RetrofitClient.webService.getImages().await()
         withContext(Dispatchers.IO) {
             listImages.clear()
             call.forEach { image ->
                 listImages.add(
-                    ImagesRegisterItem(image.id, image.url)
+                    Images(image.id, image.url)
                 )
                 images = listImages.toList()
             }

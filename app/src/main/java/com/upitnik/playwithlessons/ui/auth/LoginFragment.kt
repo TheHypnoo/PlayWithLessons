@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
-import com.upitnik.playwithlessons.data.remote.auth.AuthDataSource
+import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
 import com.upitnik.playwithlessons.databinding.FragmentLoginBinding
 import com.upitnik.playwithlessons.domain.auth.AuthRepoImpl
 import com.upitnik.playwithlessons.presentation.auth.AuthViewModel
@@ -76,19 +76,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (result) {
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
+                    binding.btnSignIn.visibility = View.INVISIBLE
                     binding.btnSignIn.isEnabled = false
                 }
                 is Result.Sucess -> {
                     binding.progressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_loginFragment_to_mainMenu)
-                    Toast.makeText(
-                        requireContext(),
-                        "Welcome ${result.data?.email}",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
                 is Result.Failure -> {
                     binding.btnSignIn.isEnabled = true
+                    binding.btnSignIn.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireContext(),

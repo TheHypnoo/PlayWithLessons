@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.databinding.ItemRankingBinding
 
 class RankingAdapter(
-    private val listUsers: List<UserItem>,
+    private val listUsers: List<User>,
     private val OnUserClick: RankingFragment
 ) :
     RecyclerView.Adapter<RankingAdapter.RankingHolder>() {
@@ -29,7 +29,7 @@ class RankingAdapter(
     class RankingHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemRankingBinding.bind(view)
 
-        fun render(user: UserItem, OnUserClick: OnUserActionListener) {
+        fun render(user: User, OnUserClick: OnUserActionListener) {
             binding.tvUsername.text = user.nickname
             binding.tvScoreUser.text = user.score.toString()
             Glide.with(binding.root.context).load(user.image).into(binding.civImageUser)

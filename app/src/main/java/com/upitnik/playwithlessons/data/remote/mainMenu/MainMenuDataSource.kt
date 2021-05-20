@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.data.remote.mainMenu
 
 import com.google.firebase.auth.FirebaseAuth
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.repository.WebService
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.await
 
 class MainMenuDataSource {
+
     suspend fun getSubjects(uid: String): List<Subject> {
         val listSubjects: ArrayList<Subject> = arrayListOf()
         var subjects: List<Subject> = listOf()
@@ -34,26 +35,26 @@ class MainMenuDataSource {
         return subjects
     }
 
-    suspend fun getUser(): UserItem {
+    suspend fun getUser(): User {
         val auth = FirebaseAuth.getInstance().uid
-        var User = UserItem(0, "", "", 0, "", "", 0)
+        var user = User(0, "", "", 0, "", "", 0)
         val call = WebService.RetrofitClient.webService.getUsers().await()
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-            call.forEach { user ->
-                if (user.uid == auth) {
-                    User = UserItem(
-                        user.id,
-                        user.uid,
-                        user.email,
-                        user.experience,
-                        user.image,
-                        user.nickname,
-                        user.score
+            call.forEach { userAPI ->
+                if (userAPI.uid == auth) {
+                    user = User(
+                        userAPI.id,
+                        userAPI.uid,
+                        userAPI.email,
+                        userAPI.experience,
+                        userAPI.image,
+                        userAPI.nickname,
+                        userAPI.score
                     )
                 }
             }
         }
-        return User
+        return user
     }
 
 }

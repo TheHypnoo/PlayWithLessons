@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.upitnik.playwithlessons.R
-import com.upitnik.playwithlessons.data.model.levels.Levels
+import com.upitnik.playwithlessons.core.extensions.gone
 import com.upitnik.playwithlessons.data.model.questions.Answer
 import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.data.model.subject.Subject
@@ -32,9 +32,9 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
     private lateinit var binding: ActivityQuestionsBinding
     private var count: Int = 0
     private var questionPosition = 0
-    private var ListQuestions: List<Question> = listOf()
+    private var listQuestions: List<Question> = listOf()
     private var subject: Subject = Subject(0, 0, "", "", 0, 0, 0)
-    private var level: Levels = Levels(0, 0, 0, 0)
+    private var level: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,26 +50,28 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
     private suspend fun getQuestions(): List<Question> {
         val listQuestions: ArrayList<Question> = arrayListOf()
         var questions: List<Question> = listOf()
-        level = intent.getSerializableExtra("Level") as Levels
+        level = intent.getIntExtra("NumberLevel", 0)
         subject = intent.getSerializableExtra("Subject") as Subject
         val call =
-            WebService.RetrofitClient.webService.getQuestions(level.number, subject.id).await()
+            WebService.RetrofitClient.webService.getQuestions(level, subject.id).await()
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             listQuestions.clear()
             call.forEach { question ->
-                listQuestions.add(
-                    Question(
-                        question.answer,
-                        question.id,
-                        question.image,
-                        question.level,
-                        question.stagecorrect,
-                        question.statement,
-                        question.subject
+                if (question.stagecorrect == 0) {
+                    listQuestions.add(
+                        Question(
+                            question.answer,
+                            question.id,
+                            question.image,
+                            question.level,
+                            question.stagecorrect,
+                            question.statement,
+                            question.subject
+                        )
                     )
-                )
+                }
                 questions = listQuestions.toList()
-                ListQuestions = questions
+                this@ActivityQuestions.listQuestions = questions
             }
         }
         CoroutineScope(Dispatchers.Main).launch { initUI() }
@@ -78,18 +80,20 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
 
     private fun initUI() {
         initToolbar()
-        showNewQuestion(ListQuestions.first())
+        if (listQuestions.isNotEmpty()) {
+            showNewQuestion(listQuestions.first())
+        }
         binding.tvPoints.text = "$count puntos"
         updateSteps()
     }
 
     private fun initToolbar() {
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "${subject?.name}"
+        supportActionBar?.title = subject.name
     }
 
     private fun updateSteps() {
-        binding.tvSteps.text = " ${questionPosition + 1} de ${ListQuestions.size}"
+        binding.tvSteps.text = " ${questionPosition + 1} de ${listQuestions.size}"
     }
 
     private fun setPoints() {
@@ -99,15 +103,34 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
 
     private fun nextQuestion() {
         questionPosition += 1
-        if (ListQuestions.size <= questionPosition) {
-            goToResult()
+        if (listQuestions.size <= questionPosition) {
+            binding.tvSteps.gone()
+            /*var i = 0
+            listQuestions.forEach{ question ->
+                if(question.stagecorrect == 1) {
+                    i++
+                }
+            }
+            if(i == listQuestions.size) {
+
+            }*/
+            if (count == listQuestions.size) {
+                println("Hago put diciendo que esta finalizado el level!")
+            }
+            goToResult(count, listQuestions.size, level, subject)
         } else {
-            showNewQuestion(ListQuestions[questionPosition])
+            showNewQuestion(listQuestions[questionPosition])
         }
     }
 
-    private fun goToResult() {
-        startActivity(ResultActivity.create(this, count, ListQuestions.size, subject, level.id))
+    private fun goToResult(count: Int, sizeList: Int, level: Int, Subject: Subject) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+        fragmentTransaction.replace(
+            R.id.container,
+            ResultQuestionFragment.newInstance(count, sizeList, level, Subject)
+        )
+        fragmentTransaction.commit()
     }
 
     private fun showNewQuestion(questionData: Question) {
@@ -132,6 +155,10 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
             setPoints()
         }
         nextQuestion()
+    }
+
+    private suspend fun updateQuestion() {
+        //WebService.RetrofitClient.webService.putQuestion(question.id, question).await()
     }
 
 }

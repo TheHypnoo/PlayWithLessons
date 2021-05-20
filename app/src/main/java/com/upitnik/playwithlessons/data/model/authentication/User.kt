@@ -1,9 +1,9 @@
-package com.upitnik.playwithlessons.data.model.auth
+package com.upitnik.playwithlessons.data.model.authentication
 
 import java.io.Serializable
 
 
-data class UserItem(
+data class User(
     val id: Int,
     val uid: String,
     val email: String,

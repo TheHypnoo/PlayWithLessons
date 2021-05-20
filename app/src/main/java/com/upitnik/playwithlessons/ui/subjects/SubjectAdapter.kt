@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.data.model.subject.Subject
-import com.upitnik.playwithlessons.data.model.subject.SubjectsItem
 import com.upitnik.playwithlessons.databinding.ItemSubjectBinding
 
 class SubjectAdapter(
@@ -27,7 +26,7 @@ class SubjectAdapter(
         holder.render(item, OnSubjectClick)
     }
 
-    class SubjectViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class SubjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemSubjectBinding.bind(view)
 
         fun render(subject: Subject, onSubjectClick: OnSubjectActionListener) {

@@ -1,7 +1,7 @@
 package com.upitnik.playwithlessons.ui.ranking
 
-import com.upitnik.playwithlessons.data.model.auth.UserItem
+import com.upitnik.playwithlessons.data.model.authentication.User
 
 interface OnUserActionListener {
-    fun onUserClick(user: UserItem)
+    fun onUserClick(user: User)
 }

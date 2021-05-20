@@ -7,7 +7,7 @@ data class Question(
     val id: Int,
     val image: String?,
     val level: Int,
-    val stagecorrect: Int?,
+    var stagecorrect: Int,
     val statement: String,
     val subject: Int
 ) : Serializable
