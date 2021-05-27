@@ -5,13 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ui.profile.ProfileFragment">
 
     <TextView
         android:id="@+id/tvProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
+        android:text="Perfil"
+        android:textColor="@color/black"
         android:textSize="42sp"
         app:layout_constraintBottom_toTopOf="@+id/cabezera"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -43,13 +45,15 @@
                 android:visibility="gone" />
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginTop="4dp"
+                android:padding="4dp"
                 android:id="@+id/civ_imageUser"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="center_horizontal|top"
                 android:src="@drawable/ic_twitter"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="6dp" />
+                app:civ_border_color="#FFFFFF"
+                app:civ_border_width="2dp" />
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -102,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Achievements"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/rvAchievement"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cabezera" />
@@ -117,11 +122,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAchievement"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/tvStatsQuestion"
+        app:layout_constraintBottom_toTopOf="@+id/tvSignOut"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_archivement"
@@ -133,6 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Stats"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/lvStats"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvAchievement" />
@@ -142,6 +148,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -253,6 +260,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Cerrar Sesión"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

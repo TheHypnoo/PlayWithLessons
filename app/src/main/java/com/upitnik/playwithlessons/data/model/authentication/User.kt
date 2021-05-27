@@ -7,8 +7,8 @@ data class User(
     val id: Int,
     val uid: String,
     val email: String,
-    val experience: Int,
+    var experience: Int,
     val image: String?,
     val nickname: String,
-    val score: Int
+    var score: Int
 ): Serializable

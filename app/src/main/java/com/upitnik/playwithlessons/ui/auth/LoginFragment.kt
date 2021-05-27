@@ -35,7 +35,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         isUserLoggedIn()
         doLogin()
         gotoSignUpPage()
-
     }
 
     private fun isUserLoggedIn() {

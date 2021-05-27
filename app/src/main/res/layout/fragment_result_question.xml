@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     tools:context=".ui.questions.ResultQuestionFragment">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_margin="16dp"
         android:text="Quiz Result"
         android:textSize="32sp"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Acertadas:"
         android:textSize="26sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -34,6 +37,7 @@
         android:text="0"
         android:gravity="center"
         android:textSize="26sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,6 +51,7 @@
         android:layout_height="wrap_content"
         android:text="Fallados: "
         android:textSize="26sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -58,6 +63,7 @@
         android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:text="0"
+        android:textColor="@color/black"
         android:textSize="26sp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Volver"
+        android:background="@drawable/custom_button_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -82,6 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="A por más"
+        android:background="@drawable/custom_button_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

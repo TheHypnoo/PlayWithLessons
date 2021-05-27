@@ -76,8 +76,8 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:src="@drawable/ic_instagram"
-                    app:civ_border_color="#FF000000"
-                    app:civ_border_width="6dp"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="2dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,15 +114,15 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    0<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSubjectMainMenu"
         android:layout_width="wrap_content"
-        android:layout_height="475dp"
+        android:layout_height="0dp"
+        android:layout_margin="32dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRanking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mcv_user"
-        tools:listitem="@layout/item_subject" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mcv_user" />
 
     <ProgressBar
         android:id="@+id/pbSubjescts"
@@ -134,50 +134,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mcv_user" />
 
-
-    <!--  <com.google.android.material.button.MaterialButton
-          android:id="@+id/btnPlayGame"
-          android:layout_width="120dp"
-          android:layout_height="wrap_content"
-          android:text="Jugar"
-          android:background="@drawable/custom_button_login"
-          android:textSize="18sp"
-          app:backgroundTint="@null"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
-
-
-      <com.google.android.material.button.MaterialButton
-          android:id="@+id/btnRanking"
-          android:layout_width="120dp"
-          android:layout_height="wrap_content"
-          android:background="@drawable/custom_button_login"
-          android:text="Ranking"
-          android:textSize="18sp"
-          app:backgroundTint="@null"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.6" />
-
-      <com.google.android.material.button.MaterialButton
-          android:id="@+id/btnSettings"
-          android:layout_width="120dp"
-          android:layout_height="wrap_content"
-          android:background="@drawable/custom_button_login"
-          android:text="Ajustes"
-          android:textSize="18sp"
-          app:backgroundTint="@null"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintLeft_toLeftOf="parent"
-          app:layout_constraintRight_toRightOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.7" />-->
-
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/btnRanking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -187,11 +144,8 @@
         android:textSize="18sp"
         app:backgroundTint="@color/darkGreen"
         app:layout_constraintBottom_toTopOf="@+id/civInstagram"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvSubjectMainMenu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -201,10 +155,11 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_instagram"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="6dp"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRanking" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civTwitter"
@@ -213,11 +168,12 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_twitter"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="6dp"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRanking" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civWeb"
@@ -226,11 +182,12 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_web"
         app:civ_border_color="#FF000000"
-        app:civ_border_width="6dp"
+        app:civ_border_width="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnRanking" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

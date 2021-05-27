@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.gone
 import com.upitnik.playwithlessons.data.model.questions.Answer
@@ -53,7 +55,7 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
         level = intent.getIntExtra("NumberLevel", 0)
         subject = intent.getSerializableExtra("Subject") as Subject
         val call =
-            WebService.RetrofitClient.webService.getQuestions(level, subject.id).await()
+            WebService.RetrofitClient.webService.getQuestions(level, subject.id, FirebaseAuth.getInstance().currentUser!!.uid).await()
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             listQuestions.clear()
             call.forEach { question ->
@@ -146,7 +148,7 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
             {
                 updateView(answer)
             },
-            400 // value in milliseconds
+            700 // value in milliseconds
         )
     }
 

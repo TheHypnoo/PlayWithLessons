@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/yellow"
     tools:context=".ui.auth.RegisterFragment">
 
     <TextView
@@ -16,7 +17,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/mulish_main"
         android:text="Registrate"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -50,8 +51,7 @@
         android:id="@+id/civSelectImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="6dp"
+        app:civ_border_width="3dp"
         android:visibility="gone"
         android:layout_gravity="center"/>
 
@@ -64,6 +64,7 @@
         android:layout_marginTop="8dp"
         android:hint="Ingresa tu usuario"
         app:boxStrokeColor="#31AF1C"
+        android:textColorHint="@color/black"
         app:endIconTint="#31AF1C"
         app:hintTextColor="#31AF1C"
         app:startIconTint="#31AF1C">
@@ -82,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Ingresa tu email"
+        android:textColorHint="@color/black"
         app:boxStrokeColor="#31AF1C"
         app:endIconTint="#31AF1C"
         app:hintTextColor="#31AF1C"
@@ -103,8 +105,10 @@
         android:layout_marginTop="8dp"
         android:hint="Ingresa tu contraseña"
         app:boxStrokeColor="#31AF1C"
+        android:textColorHint="@color/black"
         app:endIconTint="#31AF1C"
         app:hintTextColor="#31AF1C"
+        app:passwordToggleTint="@color/black"
         app:passwordToggleEnabled="true"
         app:startIconTint="#31AF1C">
 
@@ -122,8 +126,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Confirma tu contraseña"
+        android:textColorHint="@color/black"
         app:boxStrokeColor="#31AF1C"
         app:endIconTint="#31AF1C"
+        app:passwordToggleTint="@color/black"
         app:hintTextColor="#31AF1C"
         app:passwordToggleEnabled="true">
 

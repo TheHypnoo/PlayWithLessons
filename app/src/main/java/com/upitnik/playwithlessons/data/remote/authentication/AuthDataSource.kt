@@ -22,16 +22,17 @@ class AuthDataSource {
         email: String,
         password: String,
         nickname: String,
-        image: String
+        image: String?
     ): FirebaseUser? {
         val authResult =
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).await()
-        singUpApi(email, nickname, image)
+        singUpApi(email, nickname, image!!)
         return authResult.user
     }
 
-    private suspend fun singUpApi(email: String, nickname: String, image: String): User {
-        val user = User(0, FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image, nickname, 0)
+    private suspend fun singUpApi(email: String, nickname: String, image: String?): User {
+        val user =
+            User(0, FirebaseAuth.getInstance().currentUser!!.uid, email, 0, image!!, nickname, 0)
         WebService.RetrofitClient.webService.createUser(user).await()
         return user
     }

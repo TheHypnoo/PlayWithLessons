@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.hideKeyboard
+import com.upitnik.playwithlessons.core.extensions.isNull
 import com.upitnik.playwithlessons.data.model.authentication.Images
 import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
@@ -91,13 +92,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                     email
                 )
             ) return@setOnClickListener
-
-            createUser(email, password, username, image!!)
+            if (image.isNull()) image = "http://cdn.onlinewebfonts.com/svg/img_258083.png"
+            createUser(email, password, username, image)
         }
     }
 
-    private fun createUser(email: String, password: String, username: String, image: String) {
-        viewModel.signUp(email, password, username, image)
+    private fun createUser(
+        emailUser: String,
+        passwordUser: String,
+        usernameUser: String,
+        imageUser: String?
+    ) {
+        viewModel.signUp(emailUser, passwordUser, usernameUser, imageUser!!)
             .observe(viewLifecycleOwner, Observer { result ->
                 when (result) {
                     is Result.Loading -> {
@@ -112,10 +118,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                             User(
                                 0,
                                 FirebaseAuth.getInstance().currentUser!!.uid,
-                                email,
+                                emailUser,
                                 0,
-                                image,
-                                username,
+                                imageUser,
+                                usernameUser,
                                 0
                             )
                         )
@@ -173,7 +179,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
         binding.rvSelectorImage.visibility = View.GONE
         Glide.with(binding.root.context).load(imageUser.url).into(binding.civSelectImage)
         binding.civSelectImage.borderColor =
-            ContextCompat.getColor(requireContext(), R.color.yellow)
+            ContextCompat.getColor(requireContext(), R.color.darkGreen)
         image = imageUser.url
         binding.civSelectImage.visibility = View.VISIBLE
     }

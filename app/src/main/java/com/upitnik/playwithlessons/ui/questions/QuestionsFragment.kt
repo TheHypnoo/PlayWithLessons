@@ -10,11 +10,16 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.isNull
 import com.upitnik.playwithlessons.core.extensions.load
+import com.upitnik.playwithlessons.core.extensions.shakeRotate
+import com.upitnik.playwithlessons.core.extensions.vibrate
+import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.model.questions.Answer
 import com.upitnik.playwithlessons.data.model.questions.Question
+import com.upitnik.playwithlessons.data.model.userQuestions
 import com.upitnik.playwithlessons.databinding.FragmentQuestionsBinding
 import com.upitnik.playwithlessons.repository.WebService
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +38,8 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     lateinit var adapter: AnswerAdapter
 
     lateinit var question: Question
-
+    private var correction = false
+    private var listOneUser = listOf<User>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -44,9 +50,20 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentQuestionsBinding.bind(view)
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                getUser()
+            }
+        }
         initQuestion(question)
     }
 
+    private suspend fun getUser() {
+        listOneUser = WebService.RetrofitClient.webService.getUser(
+            FirebaseAuth.getInstance().currentUser!!.uid
+        ).await()
+        println(listOneUser[0])
+    }
 
     private fun initTitleQuestion(title: String) {
         binding.tvQuestion.text = title
@@ -59,23 +76,42 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     }
 
     private fun checkIsCorrect(answer: Answer, button: Button) {
-        if (answer.correct == 1) {
-            question.stagecorrect = 1
-            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
-            CoroutineScope(Dispatchers.IO).launch {
-                withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-                    updateQuestion()
+        if (!correction) {
+            correction = true
+            if (answer.correct == 1) {
+                question.stagecorrect = 1
+                button.isClickable = false
+                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green))
+                CoroutineScope(Dispatchers.IO).launch {
+                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                        updateUserQuestion()
+                        updateUser()
+                    }
                 }
+            } else {
+                context?.vibrate(1000)
+                binding.rvAnswer.shakeRotate()
+                button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
             }
-        } else {
-            button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
         }
     }
 
-    private suspend fun updateQuestion() {
-        WebService.RetrofitClient.webService.putQuestion(question.id, question).await()
+    private suspend fun updateUser() {
+        listOneUser[0].score += 10
+        listOneUser[0].experience += 15
+        WebService.RetrofitClient.webService.putUser(
+            FirebaseAuth.getInstance().currentUser!!.uid,
+            listOneUser[0]
+        ).await()
     }
 
+    private suspend fun updateUserQuestion() {
+        WebService.RetrofitClient.webService.putQuestion(
+            question.id,
+            FirebaseAuth.getInstance().currentUser!!.uid,
+            userQuestions(1)
+        ).await()
+    }
 
     private fun initQuestion(questions: Question) {
         if (!questions.image.isNull()) {
@@ -100,10 +136,11 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     private fun onAnswerSelected(result: Answer, position: Int) {
         val viewHolder = binding.rvAnswer.findViewHolderForAdapterPosition(position)
         checkIsCorrect(result, (viewHolder as AnswerViewHolder).btnAnswer)
-
         listener?.onAnswerClickedQuestions(result)
+        for (d in question.answer.indices) {
+            binding.rvAnswer.findViewHolderForAdapterPosition(d)!!.itemView.isClickable = false
+        }
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -117,7 +154,7 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         listener = null
     }
 
-    fun formatQuestion(question: String) {
+    private fun formatQuestion(question: String) {
 //        Usamos la palabra reservada <code>var<code> para...
         val parts = question.split("<code>")
         if (parts.size == 1) {
@@ -127,7 +164,7 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
                 SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]}")
 
             spannable.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.orange)),
+                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
                 parts[0].length, parts[0].length + parts[1].length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )

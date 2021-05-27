@@ -9,6 +9,7 @@ import com.upitnik.playwithlessons.data.model.difficults.Difficults
 import com.upitnik.playwithlessons.data.model.levels.Levels
 import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.data.model.subject.Subject
+import com.upitnik.playwithlessons.data.model.userQuestions
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,6 +27,12 @@ interface WebService {
     @GET("api/pwlUserspwl")
     fun getUsers(): Call<List<User>>
 
+    @GET("api/pwlUserspwl/{uid}")
+    fun getUser(@Path("uid") uid: String): Call<List<User>>
+
+    @PUT("api/pwlUserspwl/{uid}")
+    fun putUser(@Path("uid") uid: String, @Body user: User): Call<Int>
+
     @GET("api/pwlAchievements")
     fun getAchievements(): Call<List<Achievements>>
 
@@ -36,14 +43,19 @@ interface WebService {
     fun getDifficulty(): Call<List<Difficults>>
     //NO SE CUANDO HARE ESTO VALE?!
 
-    @PUT("api/pwlQuestions/{id}")
-    fun putQuestion(@Path("id") id: Int?, @Body question: Question): Call<Question>
+    @PATCH("api/pwlUserQuestion/{idQuestion}/{uidUser}")
+    fun putQuestion(
+        @Path("idQuestion") idQuestion: Int,
+        @Path("uidUser") uidUser: String,
+        @Body stagecorrect: userQuestions
+    ): Call<Int>
 
     @Headers("Content-Type: application/json")
-    @GET("api/pwlQuestions/{idLevel}/{idSubject}")
+    @GET("api/pwlQuestions/{idLevel}/{idSubject}/{uidUser}")
     fun getQuestions(
         @Path("idLevel") idLevel: Int,
-        @Path("idSubject") idSubject: Int
+        @Path("idSubject") idSubject: Int,
+        @Path("uidUser") uidUser: String
     ): Call<List<Question>>
 
     @Headers("Content-Type: application/json")

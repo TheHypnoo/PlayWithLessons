@@ -12,9 +12,9 @@ class AuthRepoImpl(private val dataSource: AuthDataSource) : AuthRepo {
         email: String,
         password: String,
         username: String,
-        image: String
+        image: String?
     ): FirebaseUser? =
-        dataSource.signUp(email, password, username, image)
+        dataSource.signUp(email, password, username, image!!)
 
     override suspend fun signOut() {
         dataSource.signOut()

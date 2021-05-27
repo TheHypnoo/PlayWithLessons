@@ -9,7 +9,7 @@ interface AuthRepo {
         email: String,
         password: String,
         username: String,
-        image: String
+        image: String?
     ): FirebaseUser?
 
     suspend fun signOut()
