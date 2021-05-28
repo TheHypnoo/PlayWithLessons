@@ -71,7 +71,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         findNavController().navigate(R.id.action_profile_to_loginFragment)
                         Toast.makeText(
                             requireContext(),
-                            "Has salido bro!",
+                            "Has salido de la sesión",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

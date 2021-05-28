@@ -62,7 +62,6 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
         listOneUser = WebService.RetrofitClient.webService.getUser(
             FirebaseAuth.getInstance().currentUser!!.uid
         ).await()
-        println(listOneUser[0])
     }
 
     private fun initTitleQuestion(title: String) {
