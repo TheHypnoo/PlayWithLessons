@@ -158,59 +158,63 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
     private fun formatQuestion(question: String) {
 //        Usamos la palabra reservada <code>var<code> para...
         val parts = question.split("<code>")
-        if (parts.size == 1) {
-//            return SpannableString(parts[0])
-        } else if (parts.size == 3) {
-            val spannable =
-                SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]}")
+        when (parts.size) {
+            1 -> {
+    //            return SpannableString(parts[0])
+            }
+            3 -> {
+                val spannable =
+                    SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]}")
 
-            spannable.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
-                parts[0].length, parts[0].length + parts[1].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                spannable.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                    parts[0].length, parts[0].length + parts[1].length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-            /*spannable.setSpan(
-                BackgroundColorSpan(
-                    ContextCompat.getColor(
-                        activity as Context,
-                        R.color.primaryDarkColor
-                    )
-                ),
-                parts[0].length + 1, parts[0].length + parts[1].length + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )*/
+                /*spannable.setSpan(
+                    BackgroundColorSpan(
+                        ContextCompat.getColor(
+                            activity as Context,
+                            R.color.primaryDarkColor
+                        )
+                    ),
+                    parts[0].length + 1, parts[0].length + parts[1].length + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )*/
 
-            /* spannable.setSpan(
-                 StyleSpan(Typeface.NORMAL),
-                 parts[0].length + 1, parts[0].length + parts[1].length + 1,
-                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-             )*/
+                /* spannable.setSpan(
+                     StyleSpan(Typeface.NORMAL),
+                     parts[0].length + 1, parts[0].length + parts[1].length + 1,
+                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                 )*/
 
 
-            binding.tvQuestion.text = spannable
-        } else if (parts.size == 5) {
-            val spannable =
-                SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]} ${parts[3] + parts[4].trimEnd()}")
+                binding.tvQuestion.text = spannable
+            }
+            5 -> {
+                val spannable =
+                    SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]} ${parts[3] + parts[4].trimEnd()}")
 
-            spannable.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
-                parts[0].length, parts[0].length + parts[1].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                spannable.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                    parts[0].length, parts[0].length + parts[1].length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-            spannable.setSpan(
-                BackgroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
-                parts[2].length, parts[3].length + parts[4].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+                spannable.setSpan(
+                    BackgroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                    parts[2].length, parts[3].length + parts[4].length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
 
-            /*spannable.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
-                parts[3].length, parts[3].length + parts[4].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )*/
-            binding.tvQuestion.text = spannable
+                /*spannable.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                    parts[3].length, parts[3].length + parts[4].length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )*/
+                binding.tvQuestion.text = spannable
+            }
         }
     }
 

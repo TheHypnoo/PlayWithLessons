@@ -4,8 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -16,8 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayWithLessons"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.questions.ActivityQuestions" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".ui.questions.ActivityQuestions"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

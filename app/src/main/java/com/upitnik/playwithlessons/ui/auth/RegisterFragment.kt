@@ -13,7 +13,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
 import com.upitnik.playwithlessons.core.extensions.hideKeyboard
+import com.upitnik.playwithlessons.core.extensions.invisible
 import com.upitnik.playwithlessons.core.extensions.isNull
+import com.upitnik.playwithlessons.core.extensions.visible
 import com.upitnik.playwithlessons.data.model.authentication.Images
 import com.upitnik.playwithlessons.data.model.authentication.User
 import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
@@ -73,8 +75,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
 
     private fun visibilityImage() {
         binding.civSelectImage.setOnClickListener {
-            binding.civSelectImage.visibility = View.GONE
-            binding.rvSelectorImage.visibility = View.VISIBLE
+            binding.civSelectImage.invisible()
+            binding.rvSelectorImage.visible()
         }
     }
 
@@ -176,12 +178,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
     }
 
     override fun onImageClick(imageUser: Images) {
-        binding.rvSelectorImage.visibility = View.GONE
+        binding.rvSelectorImage.invisible()
         Glide.with(binding.root.context).load(imageUser.url).into(binding.civSelectImage)
         binding.civSelectImage.borderColor =
             ContextCompat.getColor(requireContext(), R.color.darkGreen)
         image = imageUser.url
-        binding.civSelectImage.visibility = View.VISIBLE
+        binding.civSelectImage.visible()
     }
 
 
