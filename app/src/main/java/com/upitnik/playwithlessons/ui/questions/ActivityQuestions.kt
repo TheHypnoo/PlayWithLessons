@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.gone
 import com.upitnik.playwithlessons.data.model.questions.Answer
@@ -35,7 +34,7 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
     private var count: Int = 0
     private var questionPosition = 0
     private var listQuestions: List<Question> = listOf()
-    private var subject: Subject = Subject(0, 0, "", "", 0, 0, 0)
+    private var subject: Subject = Subject(0, 0, "", "", 0, 0, 0, "")
     private var level: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,23 +54,25 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
         level = intent.getIntExtra("NumberLevel", 0)
         subject = intent.getSerializableExtra("Subject") as Subject
         val call =
-            WebService.RetrofitClient.webService.getQuestions(level, subject.id, FirebaseAuth.getInstance().currentUser!!.uid).await()
+            WebService.RetrofitClient.webService.getQuestions(
+                level,
+                subject.id,
+                FirebaseAuth.getInstance().currentUser!!.uid
+            ).await()
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             listQuestions.clear()
             call.forEach { question ->
-                if (question.stagecorrect == 0) {
-                    listQuestions.add(
-                        Question(
-                            question.answer,
-                            question.id,
-                            question.image,
-                            question.level,
-                            question.stagecorrect,
-                            question.statement,
-                            question.subject
-                        )
+                listQuestions.add(
+                    Question(
+                        question.answer,
+                        question.id,
+                        question.image,
+                        question.level,
+                        question.stagecorrect,
+                        question.statement,
+                        question.subject
                     )
-                }
+                )
                 questions = listQuestions.toList()
                 this@ActivityQuestions.listQuestions = questions
             }
@@ -117,7 +118,12 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
 
             }*/
             if (count == listQuestions.size) {
-                println("Hago put diciendo que esta finalizado el level!")
+                CoroutineScope(Dispatchers.IO).launch {
+                    withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                        stageCorrectTo0()
+                        finishLevel()
+                    }
+                }
             }
             goToResult(count, listQuestions.size, level, subject)
         } else {
@@ -159,8 +165,20 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
         nextQuestion()
     }
 
-    private suspend fun updateQuestion() {
-        //WebService.RetrofitClient.webService.putQuestion(question.id, question).await()
+    private suspend fun stageCorrectTo0() {
+        WebService.RetrofitClient.webService.stageCorrectTo0(
+            FirebaseAuth.getInstance().currentUser!!.uid,
+            level,
+            subject.id
+        ).await()
+    }
+
+    private suspend fun finishLevel() {
+        WebService.RetrofitClient.webService.finishLevel(
+            FirebaseAuth.getInstance().currentUser!!.uid,
+            level,
+            subject.id
+        ).await()
     }
 
 }

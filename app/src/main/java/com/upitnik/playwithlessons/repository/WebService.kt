@@ -36,8 +36,11 @@ interface WebService {
     @GET("api/pwlAchievements")
     fun getAchievements(): Call<List<Achievements>>
 
-    @GET("api/pwlLevels/{id}")
-    fun getLevels(@Path("id") id: Int?): Call<List<Levels>>
+    @GET("api/pwlLevels/{uidUser}/{idSubject}")
+    fun getLevels(
+        @Path("uidUser") uidUser: String,
+        @Path("idSubject") idSubject: Int
+    ): Call<List<Levels>>
 
     @GET("api/pwlDifficulty")
     fun getDifficulty(): Call<List<Difficults>>
@@ -48,6 +51,20 @@ interface WebService {
         @Path("idQuestion") idQuestion: Int,
         @Path("uidUser") uidUser: String,
         @Body stagecorrect: userQuestions
+    ): Call<Int>
+
+    @PATCH("api/pwlUserStagecorrect/{uidUser}/{NumberLevel}/{idSubject}")
+    fun stageCorrectTo0(
+        @Path("uidUser") uidUser: String,
+        @Path("NumberLevel") NumberLevel: Int,
+        @Path("idSubject") idSubject: Int
+    ): Call<List<Question>>
+
+    @PATCH("api/pwlsavelevels/{uidUser}/{numberLevel}/{idSubject}")
+    fun finishLevel(
+        @Path("uidUser") uidUser: String,
+        @Path("numberLevel") numberLevel: Int,
+        @Path("idSubject") idSubject: Int
     ): Call<Int>
 
     @Headers("Content-Type: application/json")

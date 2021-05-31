@@ -1,11 +1,18 @@
 package com.upitnik.playwithlessons.data.model.levels
 
+
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-
 data class Levels(
-    val difficulty: Int,
+    @SerializedName("difficult_id")
+    val difficultId: Int,
+    @SerializedName("finished")
+    val finished: Int,
+    @SerializedName("id")
     val id: Int,
+    @SerializedName("number")
     val number: Int,
-    val subject: Int
+    @SerializedName("subject_id")
+    val subjectId: Int
 ) : Serializable

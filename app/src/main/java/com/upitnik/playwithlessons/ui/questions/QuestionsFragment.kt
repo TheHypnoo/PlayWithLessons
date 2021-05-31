@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.Button
@@ -186,6 +188,28 @@ class QuestionsFragment : Fragment(R.layout.fragment_questions) {
              )*/
 
 
+            binding.tvQuestion.text = spannable
+        } else if (parts.size == 5) {
+            val spannable =
+                SpannableString("${parts[0].trimEnd()} ${parts[1].trim() + parts[2]} ${parts[3] + parts[4].trimEnd()}")
+
+            spannable.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                parts[0].length, parts[0].length + parts[1].length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            spannable.setSpan(
+                BackgroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                parts[2].length, parts[3].length + parts[4].length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            /*spannable.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(activity as Context, R.color.darkGreen)),
+                parts[3].length, parts[3].length + parts[4].length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )*/
             binding.tvQuestion.text = spannable
         }
     }

@@ -34,7 +34,7 @@ class ResultQuestionFragment : Fragment(R.layout.fragment_result_question) {
     private var count: Int = 0
     private var sizeList: Int = 0
     private var level: Int = 0
-    private var subject: Subject = Subject(0, 0, "", "", 0, 0, 0)
+    private var subject: Subject = Subject(0, 0, "", "", 0, 0, 0, "")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

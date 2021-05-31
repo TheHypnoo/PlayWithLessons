@@ -26,7 +26,8 @@ class MainMenuDataSource {
                         subject.name,
                         subject.number,
                         subject.pwluser_id,
-                        subject.subject_id
+                        subject.subject_id,
+                        subject.difficult
                     )
                 )
                 subjects = listSubjects.toList()

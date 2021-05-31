@@ -32,11 +32,29 @@ class SubjectAdapter(
         fun render(subject: Subject, onSubjectClick: OnSubjectActionListener) {
             binding.tvNameSubject.text = subject.name
             binding.pbSubject.progress = subject.number
+            binding.tvDifficult.text = subject.difficult
+            when (subject.difficult) {
+                FACIL -> {
+                    binding.ivDifficult.setImageResource(R.drawable.ic_difficulty_low)
+                }
+                NORMAL -> {
+                    binding.ivDifficult.setImageResource(R.drawable.ic_difficulty_medium)
+                }
+                else -> {
+                    binding.ivDifficult.setImageResource(R.drawable.ic_difficulty_high)
+                }
+            }
 
             Glide.with(binding.root.context).load(subject.image).into(binding.ivSubject)
             binding.root.setOnClickListener {
                 onSubjectClick.onSubjectClicked(subject)
             }
+        }
+
+        companion object {
+            const val FACIL = "Fàcil"
+            const val NORMAL = "Normal"
+            const val DIFICIL = "Difícil"
         }
     }
 

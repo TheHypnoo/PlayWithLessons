@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlayWithLessons"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.questions.ResultActivity" />
         <activity android:name=".ui.questions.ActivityQuestions" />
         <activity android:name=".MainActivity">
             <intent-filter>

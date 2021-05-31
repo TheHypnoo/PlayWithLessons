@@ -9,5 +9,6 @@ data class Subject(
     val name: String,
     val number: Int,
     val pwluser_id: Int,
-    val subject_id: Int
+    val subject_id: Int,
+    val difficult: String
 ) : Serializable

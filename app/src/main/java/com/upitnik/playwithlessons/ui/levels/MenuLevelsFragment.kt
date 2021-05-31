@@ -57,7 +57,6 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
                 is Result.Failure -> {
                     binding.pbSelectLevels.visible()
                     binding.rvLevels.invisible()
-
                     Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",

@@ -196,7 +196,8 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
                 Subject.name,
                 Subject.number,
                 Subject.pwluser_id,
-                Subject.subject_id
+                Subject.subject_id,
+                Subject.difficult
             )
         )
         binding.root.findNavController()

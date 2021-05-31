@@ -20,7 +20,7 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
     }
 
     override fun onBindViewHolder(holder: LevelsHolder, position: Int) {
-        holder.render(listLevels[position], subject)
+        holder.render(listLevels[position], subject, listLevels)
     }
 
     override fun getItemCount(): Int = listLevels.size
@@ -28,7 +28,9 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
     class LevelsHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemLevelBinding.bind(view)
 
-        fun render(level: Levels, subject: Subject) {
+        fun render(level: Levels, subject: Subject, listLevels: List<Levels>) {
+            val arrayListLevels: ArrayList<Levels> = arrayListOf()
+            arrayListLevels.addAll(listLevels)
             val bundle = Bundle()
             bundle.putInt("NumberLevel", level.number)
             bundle.putSerializable(
@@ -40,9 +42,16 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
                     subject.name,
                     subject.number,
                     subject.pwluser_id,
-                    subject.subject_id
+                    subject.subject_id,
+                    subject.difficult
                 )
             )
+            //bundle.putSerializable("Levels", arrayListLevels)
+            if (level.finished == 1) {
+                binding.ivStar.setImageResource(R.drawable.ic_star)
+            } else {
+                binding.ivStar.setImageResource(R.drawable.ic_star_black)
+            }
             binding.btnLevel.text = level.number.toString()
             binding.btnLevel.setOnClickListener {
                 binding.root.findNavController()
