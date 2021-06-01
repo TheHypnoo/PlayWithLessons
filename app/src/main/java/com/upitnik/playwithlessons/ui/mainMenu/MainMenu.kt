@@ -241,4 +241,37 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
         user = arguments?.getSerializable("User") as User?
     }
 
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(CoroutineScope(Dispatchers.Main).coroutineContext) {
+                getSubjects()
+                getUser()
+            }
+        }
+        initClickListener()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(CoroutineScope(Dispatchers.Main).coroutineContext) {
+                getSubjects()
+                getUser()
+            }
+        }
+        initClickListener()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(CoroutineScope(Dispatchers.Main).coroutineContext) {
+                getSubjects()
+                getUser()
+            }
+        }
+        initClickListener()
+    }
+
 }

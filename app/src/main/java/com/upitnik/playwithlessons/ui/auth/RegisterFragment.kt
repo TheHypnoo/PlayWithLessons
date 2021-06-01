@@ -162,6 +162,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
             binding.editTextUsername.error = "El usuario esta vacio"
             return true
         }
+        if (username.length == 12) {
+            binding.editTextUsername.error = "El nombre del usuario es muy largo"
+            return true
+        }
         if (email.isEmpty()) {
             binding.editTextEmail.error = "El correo esta vacio"
             return true
@@ -171,7 +175,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
             return true
         }
         if (confirmPassword.isEmpty()) {
-            binding.editTextConfirmPassword.error = "Confirmar contraseña esta vacio"
+            binding.editTextConfirmPassword.error = "El confirmar contraseña esta vacio"
             return true
         }
         return false

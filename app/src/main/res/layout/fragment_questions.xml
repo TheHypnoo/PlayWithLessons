@@ -12,26 +12,30 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvQuestion"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
+        android:autoSizeMaxTextSize="22sp"
+        android:autoSizeMinTextSize="16dp"
+        android:autoSizeTextType="uniform"
         android:ellipsize="end"
-        android:textColor="@color/black"
+        android:gravity="center"
         android:padding="16dp"
-        android:textSize="22sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rvAnswer"
+        app:layout_constraintDimensionRatio="2.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivHeader"
-        tools:text="Esto es una pregunta" />
+        tools:text="Esto es una pregunta " />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnswer"

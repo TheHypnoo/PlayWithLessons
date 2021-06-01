@@ -18,38 +18,70 @@ import retrofit2.http.*
 interface WebService {
     //Aqui todas las llamadas a las API
     @GET("api/pwlimage")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getImages(): Call<List<Images>>
 
     @GET("api/pwlProgressandSubject/{uid}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getSubjects(@Path("uid") uid: String): Call<List<Subject>>
 
     @GET("api/pwlUserspwl")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getUsers(): Call<List<User>>
 
     @GET("api/pwlUserspwl/{uid}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getUser(@Path("uid") uid: String): Call<List<User>>
 
     @PUT("api/pwlUserspwl/{uid}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun putUser(@Path("uid") uid: String, @Body user: User): Call<Int>
 
     @GET("api/pwlAchievements")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getAchievements(): Call<List<Achievements>>
 
     @GET("api/pwlLevels/{uidUser}/{idSubject}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getLevels(
         @Path("uidUser") uidUser: String,
         @Path("idSubject") idSubject: Int
     ): Call<List<Levels>>
 
     @PATCH("api/pwlUserQuestion/{idQuestion}/{uidUser}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun putQuestion(
         @Path("idQuestion") idQuestion: Int,
         @Path("uidUser") uidUser: String,
@@ -57,7 +89,11 @@ interface WebService {
     ): Call<Int>
 
     @PATCH("api/pwlUserStagecorrect/{uidUser}/{NumberLevel}/{idSubject}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun stageCorrectTo0(
         @Path("uidUser") uidUser: String,
         @Path("NumberLevel") NumberLevel: Int,
@@ -65,7 +101,11 @@ interface WebService {
     ): Call<List<Question>>
 
     @PATCH("api/pwlsavelevels/{uidUser}/{numberLevel}/{idSubject}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun finishLevel(
         @Path("uidUser") uidUser: String,
         @Path("numberLevel") numberLevel: Int,
@@ -73,7 +113,11 @@ interface WebService {
     ): Call<Int>
 
     @GET("api/pwlQuestions/{idLevel}/{idSubject}/{uidUser}")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     fun getQuestions(
         @Path("idLevel") idLevel: Int,
         @Path("idSubject") idSubject: Int,
@@ -81,7 +125,11 @@ interface WebService {
     ): Call<List<Question>>
 
     //@Headers("Content-Type: application/json")
-    @Headers("Authorization: Bearer ${AppConstants.API_KEY}")
+    @Headers(
+        value = ["Accept: application/json",
+            "Content-type:application/json",
+            "Authorization: Bearer ${AppConstants.API_KEY}"]
+    )
     @POST("api/pwlUserAndProgress")
     fun createUser(
         @Body userspwls: User

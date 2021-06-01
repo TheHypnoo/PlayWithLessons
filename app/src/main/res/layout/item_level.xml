@@ -4,22 +4,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="8dp">
 
     <Button
         android:id="@+id/btn_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/cardview_dark_background"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textSize="28sp"
         tools:text="1" />
 
     <ImageView
         android:id="@+id/iv_star"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_star" />
 

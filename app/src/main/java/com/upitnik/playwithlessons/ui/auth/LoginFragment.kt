@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.Result
+import com.upitnik.playwithlessons.core.extensions.hideKeyboard
 import com.upitnik.playwithlessons.data.remote.authentication.AuthDataSource
 import com.upitnik.playwithlessons.databinding.FragmentLoginBinding
 import com.upitnik.playwithlessons.domain.auth.AuthRepoImpl
@@ -80,6 +81,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
                 is Result.Sucess -> {
                     binding.progressBar.visibility = View.GONE
+                    hideKeyboard()
                     findNavController().navigate(R.id.action_loginFragment_to_mainMenu)
                 }
                 is Result.Failure -> {

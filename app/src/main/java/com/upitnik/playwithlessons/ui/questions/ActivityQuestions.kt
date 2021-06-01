@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.gone
+import com.upitnik.playwithlessons.core.extensions.toast
 import com.upitnik.playwithlessons.data.model.questions.Answer
 import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.data.model.subject.Subject
@@ -18,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import retrofit2.await
 
 class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
@@ -46,38 +48,46 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
                 getQuestions()
             }
         }
+
     }
 
     private suspend fun getQuestions(): List<Question> {
         val listQuestions: ArrayList<Question> = arrayListOf()
         var questions: List<Question> = listOf()
-        level = intent.getIntExtra("NumberLevel", 0)
-        subject = intent.getSerializableExtra("Subject") as Subject
-        val call =
-            WebService.RetrofitClient.webService.getQuestions(
-                level,
-                subject.id,
-                FirebaseAuth.getInstance().currentUser!!.uid
-            ).await()
-        withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
-            listQuestions.clear()
-            call.forEach { question ->
-                listQuestions.add(
-                    Question(
-                        question.answer,
-                        question.id,
-                        question.image,
-                        question.level,
-                        question.stagecorrect,
-                        question.statement,
-                        question.subject
+        try {
+            level = intent.getIntExtra("NumberLevel", 0)
+            subject = intent.getSerializableExtra("Subject") as Subject
+            val call =
+                WebService.RetrofitClient.webService.getQuestions(
+                    level,
+                    subject.id,
+                    FirebaseAuth.getInstance().currentUser!!.uid
+                ).await()
+            withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+                listQuestions.clear()
+                call.forEach { question ->
+                    listQuestions.add(
+                        Question(
+                            question.answer,
+                            question.id,
+                            question.image,
+                            question.level,
+                            question.stagecorrect,
+                            question.statement,
+                            question.subject
+                        )
                     )
-                )
-                questions = listQuestions.toList()
-                this@ActivityQuestions.listQuestions = questions
+                    questions = listQuestions.toList()
+                    this@ActivityQuestions.listQuestions = questions
+                }
+            }
+            CoroutineScope(Dispatchers.Main).launch { initUI() }
+        } catch (e: HttpException) {
+            finish()
+            CoroutineScope(Dispatchers.Main).launch {
+                toast("No hay más niveles!")
             }
         }
-        CoroutineScope(Dispatchers.Main).launch { initUI() }
         return questions
     }
 
@@ -108,15 +118,6 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
         questionPosition += 1
         if (listQuestions.size <= questionPosition) {
             binding.tvSteps.gone()
-            /*var i = 0
-            listQuestions.forEach{ question ->
-                if(question.stagecorrect == 1) {
-                    i++
-                }
-            }
-            if(i == listQuestions.size) {
-
-            }*/
             if (count == listQuestions.size) {
                 CoroutineScope(Dispatchers.IO).launch {
                     withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {

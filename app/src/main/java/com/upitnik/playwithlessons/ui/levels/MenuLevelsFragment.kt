@@ -72,4 +72,9 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
         subject = arguments?.getSerializable("Subject") as Subject?
     }
 
+    override fun onResume() {
+        super.onResume()
+        getLevels()
+    }
+
 }

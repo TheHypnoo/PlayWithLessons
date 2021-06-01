@@ -25,7 +25,7 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
 
     override fun getItemCount(): Int = listLevels.size
 
-    class LevelsHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class LevelsHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemLevelBinding.bind(view)
 
         fun render(level: Levels, subject: Subject, listLevels: List<Levels>) {

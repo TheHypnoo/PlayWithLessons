@@ -12,7 +12,8 @@
         android:id="@+id/tvNameApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autoSizeMinTextSize="24dp"
+        android:autoSizeMinTextSize="20dp"
+        android:autoSizeTextType="uniform"
         android:fontFamily="@font/sketchzone"
         android:text="Play\nWith\nLessons"
         android:textColor="@color/black"
@@ -62,6 +63,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
+                    android:autoSizeMinTextSize="20dp"
+                    android:autoSizeTextType="uniform"
                     android:hint="TheHypnoo"
                     android:textColor="@color/black"
                     android:textColorHint="@color/black"
@@ -114,9 +117,9 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    0<androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSubjectMainMenu"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="32dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRanking"
@@ -143,7 +146,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:backgroundTint="@color/darkGreen"
-        app:layout_constraintBottom_toTopOf="@+id/civInstagram"
+        app:layout_constraintBottom_toTopOf="@+id/guideline35"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvSubjectMainMenu" />
@@ -152,20 +155,18 @@
         android:id="@+id/civInstagram"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_instagram"
         app:civ_border_color="#FF000000"
         app:civ_border_width="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRanking" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline35" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civTwitter"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_twitter"
         app:civ_border_color="#FF000000"
         app:civ_border_width="3dp"
@@ -173,13 +174,12 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRanking" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline35" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civWeb"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_web"
         app:civ_border_color="#FF000000"
         app:civ_border_width="3dp"
@@ -187,7 +187,14 @@
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnRanking" />
+        app:layout_constraintTop_toBottomOf="@id/guideline35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.87" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

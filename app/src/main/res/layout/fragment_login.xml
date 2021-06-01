@@ -79,8 +79,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:hint="Ingresa tu email"
@@ -88,7 +88,7 @@
         app:boxStrokeColor="#31AF1C"
         app:endIconTint="#31AF1C"
         app:hintTextColor="#31AF1C"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintBottom_toTopOf="@+id/til_password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline11"
@@ -98,10 +98,10 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
             android:autoSizeTextType="uniform"
             android:ems="20"
             android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -109,8 +109,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:hint="Ingresa tu contraseña"
@@ -121,7 +121,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout_email"
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/black"
         app:startIconTint="#31AF1C">
@@ -142,11 +142,11 @@
         android:id="@+id/btn_sign_in"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/custom_button_login"
-        android:text="Iniciar sesión"
         android:autoSizeMaxTextSize="16sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeTextType="uniform"
+        android:background="@drawable/custom_button_login"
+        android:text="Iniciar sesión"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintLeft_toLeftOf="@+id/guideline6"
@@ -155,8 +155,8 @@
 
     <TextView
         android:id="@+id/txt_signup"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/mulish_main"
         android:gravity="center"
         android:text="¿No tienes una cuenta? Registrate"
@@ -269,23 +269,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline12"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.61"
-        app:layout_constraintStart_toEndOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintGuide_percent="0.72"
         app:layout_constraintStart_toEndOf="@+id/guideline14"
         app:layout_constraintTop_toTopOf="parent" />
