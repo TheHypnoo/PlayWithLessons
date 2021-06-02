@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.upitnik.playwithlessons.R
 import com.upitnik.playwithlessons.core.extensions.gone
-import com.upitnik.playwithlessons.core.extensions.toast
 import com.upitnik.playwithlessons.data.model.questions.Answer
 import com.upitnik.playwithlessons.data.model.questions.Question
 import com.upitnik.playwithlessons.data.model.subject.Subject
@@ -85,10 +88,28 @@ class ActivityQuestions : AppCompatActivity(), OnQuestionActionListener {
         } catch (e: HttpException) {
             finish()
             CoroutineScope(Dispatchers.Main).launch {
-                toast("No hay más niveles!")
+                dialogError("No hay más niveles")
             }
         }
         return questions
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
     }
 
     private fun initUI() {
