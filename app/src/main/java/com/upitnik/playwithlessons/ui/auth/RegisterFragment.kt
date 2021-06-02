@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -158,6 +157,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
         username: String,
         email: String
     ): Boolean {
+        binding.textInputLayoutPassword.isPasswordVisibilityToggleEnabled = false
+        binding.textInputLayoutPassword.isPasswordVisibilityToggleEnabled = false
         if (password != confirmPassword) {
             binding.editTextConfirmPassword.error = "Las contraseñas no coinciden"
             binding.editTextPassword.error = "Las contraseñas no coinciden"
@@ -167,7 +168,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
             binding.editTextUsername.error = "El usuario esta vacio"
             return true
         }
-        if (username.length == 12) {
+        if (username.length > 12) {
             binding.editTextUsername.error = "El nombre del usuario es muy largo"
             return true
         }
@@ -176,10 +177,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
             return true
         }
         if (password.isEmpty()) {
+            binding.textInputLayoutPassword.isPasswordVisibilityToggleEnabled = false
             binding.editTextPassword.error = "La contraseña esta vacia"
             return true
         }
         if (confirmPassword.isEmpty()) {
+            binding.textInputLayoutConfirmPassword.isPasswordVisibilityToggleEnabled = false
             binding.editTextConfirmPassword.error = "El confirmar contraseña esta vacio"
             return true
         }
