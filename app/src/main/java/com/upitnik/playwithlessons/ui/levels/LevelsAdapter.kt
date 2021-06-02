@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.core.extensions.shakeRotate
 import com.upitnik.playwithlessons.data.model.levels.Levels
 import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.databinding.ItemLevelBinding
@@ -29,6 +30,7 @@ class LevelsAdapter(private val listLevels: List<Levels>, private val subject: S
         val binding = ItemLevelBinding.bind(view)
 
         fun render(level: Levels, subject: Subject, listLevels: List<Levels>) {
+            binding.root.shakeRotate()
             val arrayListLevels: ArrayList<Levels> = arrayListOf()
             arrayListLevels.addAll(listLevels)
             val bundle = Bundle()

@@ -2,7 +2,10 @@ package com.upitnik.playwithlessons.ui.auth
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -63,11 +66,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                 is Result.Failure -> {
                     binding.pbImages.visibility = View.GONE
                     binding.rvSelectorImage.visibility = View.INVISIBLE
-                    Toast.makeText(
+                    dialogError(result.exception.toString())
+                    /*Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",
                         Toast.LENGTH_LONG
-                    ).show()
+                    ).show()*/
                 }
             }
         })
@@ -137,11 +141,12 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
                     is Result.Failure -> {
                         binding.progressBar.visibility = View.GONE
                         binding.btnSignUp.isEnabled = true
-                        Toast.makeText(
+                        dialogError(result.exception.toString())
+                        /*Toast.makeText(
                             requireContext(),
                             "Error: ${result.exception}",
                             Toast.LENGTH_LONG
-                        ).show()
+                        ).show()*/
                     }
                 }
             })
@@ -188,6 +193,24 @@ class RegisterFragment : Fragment(R.layout.fragment_register), OnImageActionList
             ContextCompat.getColor(requireContext(), R.color.darkGreen)
         image = imageUser.url
         binding.civSelectImage.visible()
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
     }
 
 

@@ -3,7 +3,11 @@ package com.upitnik.playwithlessons.ui.levels
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -50,18 +54,27 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
                     if (result.data.isNotEmpty()) {
                         binding.rvLevels.layoutManager =
                             GridLayoutManager(this@MenuLevelsFragment.context, 5)
-                        binding.rvLevels.adapter =
-                            LevelsAdapter(result.data, subject!!)
+                        val adapter = LevelsAdapter(result.data, subject!!)
+                        binding.rvLevels.adapter = adapter
+                        val controller =
+                            AnimationUtils.loadLayoutAnimation(
+                                binding.root.context,
+                                R.anim.grid_layout_anim
+                            )
+                        binding.rvLevels.layoutAnimation = controller
+                        adapter.notifyDataSetChanged()
+                        binding.rvLevels.scheduleLayoutAnimation()
                     }
                 }
                 is Result.Failure -> {
                     binding.pbSelectLevels.visible()
                     binding.rvLevels.invisible()
-                    Toast.makeText(
+                    dialogError(result.exception.toString())
+                    /*Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",
                         Toast.LENGTH_SHORT
-                    ).show()
+                    ).show()*/
                 }
             }
         })
@@ -75,6 +88,24 @@ class MenuLevelsFragment : Fragment(R.layout.fragment_menu_levels) {
     override fun onResume() {
         super.onResume()
         getLevels()
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
     }
 
 }

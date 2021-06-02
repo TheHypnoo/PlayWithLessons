@@ -28,15 +28,18 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvUsername"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="24dp"
+            android:autoSizeMinTextSize="16dp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:textColor="@color/black"
             android:text="TheHypnoo"
-            android:textSize="24sp" />
+            android:textColor="@color/black" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="end|center"
             android:gravity="end|center"

@@ -17,11 +17,11 @@ class ThirdScreen : Fragment(R.layout.fragment_third_screen) {
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
         binding = FragmentThirdScreenBinding.bind(view)
-        binding.ivMain.load("https://www.trecebits.com/wp-content/uploads/2020/02/meme-kid.jpg")
+        binding.ivMain.load("https://cdn.iconscout.com/icon/free/png-512/mobile-cncept-remote-game-play-wireless-playstation-2-35288.png")
 
         binding.tvFinish.setOnClickListener {
             findNavController().navigate(R.id.action_onBoardingFragment_to_loginFragment)
-            //onBoardingFinished()
+            onBoardingFinished()
         }
         binding.tvPrevious.setOnClickListener {
             viewPager?.currentItem = 1

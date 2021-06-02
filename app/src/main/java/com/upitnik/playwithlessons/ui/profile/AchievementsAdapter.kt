@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.core.extensions.shakeRotate
 import com.upitnik.playwithlessons.data.model.achievements.Achievements
 import com.upitnik.playwithlessons.databinding.ItemAchievementsBinding
 
@@ -30,6 +31,7 @@ class AchievementsAdapter(
         val binding = ItemAchievementsBinding.bind(view)
 
         fun render(achievement: Achievements, scoreUser: Int) {
+            binding.root.shakeRotate()
             if (achievement.score < scoreUser) {
                 Glide.with(binding.root.context).load(achievement.image)
                     .into(binding.civImageAchievement)

@@ -2,7 +2,10 @@ package com.upitnik.playwithlessons.ui.auth
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -49,8 +52,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.btnSignIn.setOnClickListener {
             val email = binding.inputEmail.text.toString().trim()
             val password = binding.inputPasword.text.toString().trim()
-            validateCredentials(email, password)
-            signIn(email, password)
+            if (validateCredentials(email, password)) {
+                signIn(email, password)
+            }
         }
     }
 
@@ -60,15 +64,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private fun validateCredentials(email: String, password: String) {
+    private fun validateCredentials(email: String, password: String): Boolean {
+        binding.tilPassword.isPasswordVisibilityToggleEnabled = true
         if (email.isEmpty()) {
-            binding.inputEmail.error = "E-mail esta vacio"
-            return
+            binding.inputEmail.setError(
+                "E-mail esta vacio",
+                ContextCompat.getDrawable(binding.root.context, R.drawable.mtrl_ic_error)
+            )
+            return false
         }
         if (password.isEmpty()) {
+            binding.tilPassword.isPasswordVisibilityToggleEnabled = false
             binding.inputPasword.error = "Contraseña esta vacia"
-            return
+            return false
         }
+        return true
     }
 
     private fun signIn(email: String, password: String) {
@@ -88,13 +98,32 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     binding.btnSignIn.isEnabled = true
                     binding.btnSignIn.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
-                    Toast.makeText(
+                    dialogError(result.exception.toString())
+                    /*Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",
                         Toast.LENGTH_SHORT
-                    ).show()
+                    ).show()*/
                 }
             }
         })
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
     }
 }

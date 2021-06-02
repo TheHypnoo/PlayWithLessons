@@ -6,7 +6,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -145,11 +148,12 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
                 is Result.Failure -> {
                     binding.pbProfile.visible()
                     binding.mcvUser.invisible()
-                    Toast.makeText(
-                        requireContext(),
-                        "Error: ${result.exception}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    dialogError(result.exception.toString())
+                    /* Toast.makeText(
+                         requireContext(),
+                         "Error: ${result.exception}",
+                         Toast.LENGTH_SHORT
+                     ).show()*/
                 }
             }
         })
@@ -168,18 +172,29 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
                         if (result.data.isNotEmpty()) {
                             binding.rvSubjectMainMenu.layoutManager =
                                 GridLayoutManager(this@MainMenu.context, 2)
-                            binding.rvSubjectMainMenu.adapter =
-                                SubjectAdapter(result.data, this@MainMenu)
+                            val adapter = SubjectAdapter(result.data, this@MainMenu)
+                            binding.rvSubjectMainMenu.adapter = adapter
+                            val controller =
+                                AnimationUtils.loadLayoutAnimation(
+                                    binding.root.context,
+                                    R.anim.grid_layout_anim
+                                )
+
+                            binding.rvSubjectMainMenu.layoutAnimation = controller
+                            adapter.notifyDataSetChanged()
+                            binding.rvSubjectMainMenu.scheduleLayoutAnimation()
+
                         }
                     }
                     is Result.Failure -> {
                         binding.pbSubjescts.visible()
                         binding.rvSubjectMainMenu.invisible()
-                        Toast.makeText(
+                        dialogError(result.exception.toString())
+                        /*Toast.makeText(
                             requireContext(),
                             "Error: ${result.exception}",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
                     }
                 }
             })
@@ -272,6 +287,24 @@ class MainMenu : Fragment(R.layout.fragment_main_menu), OnSubjectActionListener 
             }
         }
         initClickListener()
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
     }
 
 }

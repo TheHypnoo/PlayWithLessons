@@ -3,7 +3,10 @@ package com.upitnik.playwithlessons.ui.profile
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -60,32 +63,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun signOutClick() {
         binding.tvSignOut.setOnClickListener {
-            authViewModel.signOut().observe(viewLifecycleOwner, Observer { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        /* binding.progressBar.visibility = View.VISIBLE
-                         binding.btnSignIn.isEnabled = false*/
-                    }
-                    is Result.Sucess -> {
-                        //binding.progressBar.visibility = View.GONE
-                        findNavController().navigate(R.id.action_profile_to_loginFragment)
-                        Toast.makeText(
-                            requireContext(),
-                            "Has salido de la sesión",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is Result.Failure -> {
-                        /* binding.btnSignIn.isEnabled = true
-                         binding.progressBar.visibility = View.GONE*/
-                        Toast.makeText(
-                            requireContext(),
-                            "Error: ${result.exception}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            })
+            dialogLeaveSession()
         }
     }
 
@@ -100,18 +78,27 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     binding.pbAchievements.gone()
                     binding.rvAchievement.visible()
                     binding.rvAchievement.layoutManager =
-                        GridLayoutManager(this@ProfileFragment.context, 5)
+                        GridLayoutManager(this@ProfileFragment.context, 3)
                     val adapter = AchievementsAdapter(result.data, scoreUser)
                     binding.rvAchievement.adapter = adapter
+                    val controller =
+                        AnimationUtils.loadLayoutAnimation(
+                            binding.root.context,
+                            R.anim.grid_layout_anim
+                        )
+                    binding.rvAchievement.layoutAnimation = controller
+                    adapter.notifyDataSetChanged()
+                    binding.rvAchievement.scheduleLayoutAnimation()
                 }
                 is Result.Failure -> {
                     binding.pbAchievements.visible()
                     binding.rvAchievement.invisible()
-                    Toast.makeText(
+                    dialogError(result.exception.toString())
+                    /*Toast.makeText(
                         requireContext(),
                         "Error: ${result.exception}",
                         Toast.LENGTH_SHORT
-                    ).show()
+                    ).show()*/
                 }
             }
         })
@@ -131,6 +118,78 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             5 -> "Nivel ${experiencie.toString().substring(0, 3)}"
             else -> "Nivel 0"
         }
+    }
+
+    private fun dialogError(message: String) {
+        val view = View.inflate(binding.root.context, R.layout.dialog_error, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnConfirm = view.findViewById<Button>(R.id.btn_leave)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+        val textMessage = view.findViewById<TextView>(R.id.textMessage)
+        textMessage.text = message
+    }
+
+    private fun dialogLeaveSession() {
+        val view = View.inflate(binding.root.context, R.layout.dialog_leave_session, null)
+
+        val builder = AlertDialog.Builder(binding.root.context)
+        builder.setView(view)
+
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val btnSalir = view.findViewById<Button>(R.id.btn_leave)
+
+        val btnSignOut = view.findViewById<Button>(R.id.btn_signOut)
+
+        btnSalir.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnSignOut.setOnClickListener {
+            authViewModel.signOut().observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        /* binding.progressBar.visibility = View.VISIBLE
+                         binding.btnSignIn.isEnabled = false*/
+                    }
+                    is Result.Sucess -> {
+                        //binding.progressBar.visibility = View.GONE
+                        //dialogLeaveSession()
+                        dialog.dismiss()
+                        findNavController().navigate(R.id.action_profile_to_loginFragment)
+
+                        /*Toast.makeText(
+                            requireContext(),
+                            "Has cerrado sesión",
+                            Toast.LENGTH_SHORT
+                        ).show()*/
+                    }
+                    is Result.Failure -> {
+                        /* binding.btnSignIn.isEnabled = true
+                         binding.progressBar.visibility = View.GONE*/
+                        dialogError(result.exception.toString())
+                        /*Toast.makeText(
+                            requireContext(),
+                            "Error: ${result.exception}",
+                            Toast.LENGTH_SHORT
+                        ).show()*/
+                    }
+                }
+            })
+
+        }
+
     }
 
     override fun onAttach(context: Context) {

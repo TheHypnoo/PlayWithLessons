@@ -15,7 +15,7 @@ class FirstScreen : Fragment(R.layout.fragment_first_screen) {
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
         binding = FragmentFirstScreenBinding.bind(view)
-        binding.ivMain.load("https://i.ytimg.com/vi/tQC5ZZbPWP4/maxresdefault.jpg")
+        //binding.ivMain.load("https://i.ytimg.com/vi/tQC5ZZbPWP4/maxresdefault.jpg")
 
         binding.tvNext.setOnClickListener {
             viewPager?.currentItem = 1

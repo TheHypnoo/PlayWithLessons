@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.upitnik.playwithlessons.R
+import com.upitnik.playwithlessons.core.extensions.shake
+import com.upitnik.playwithlessons.core.extensions.shakeRotate
 import com.upitnik.playwithlessons.data.model.subject.Subject
 import com.upitnik.playwithlessons.databinding.ItemSubjectBinding
 
@@ -30,6 +32,11 @@ class SubjectAdapter(
         val binding = ItemSubjectBinding.bind(view)
 
         fun render(subject: Subject, onSubjectClick: OnSubjectActionListener) {
+            /*binding.root.animation = AnimationUtils.loadAnimation(
+                binding.root.context,
+                R.anim.grid_anim
+            )*/
+            binding.root.shakeRotate()
             binding.tvNameSubject.text = subject.name
             binding.pbSubject.progress = subject.number
             binding.tvDifficult.text = subject.difficult

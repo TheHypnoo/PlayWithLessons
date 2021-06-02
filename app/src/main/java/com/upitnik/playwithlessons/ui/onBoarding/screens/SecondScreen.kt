@@ -17,7 +17,7 @@ class SecondScreen : Fragment(R.layout.fragment_second_screen) {
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
         binding = FragmentSecondScreenBinding.bind(view)
-        binding.ivMain.load("https://estudiaramataro.cat/wp-content/uploads/escola-pia-santa-anna.jpg")
+        binding.ivMain.load("https://cdn1.iconfinder.com/data/icons/internet-technology-and-security-2/128/81-512.png")
 
         binding.tvNext.setOnClickListener {
             viewPager?.currentItem = 2
